@@ -2,10 +2,10 @@
 <html lang="zh-CN">
 <head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="theme-color" content="#f6f5f1">
-<title>Nova Speak V0.5.0 · 口语表达库</title>
+<title>Nova Speak V0.5.6 · 口语表达库</title>
 <link rel="icon" type="image/png" href="./favicon.png">
 <link rel="apple-touch-icon" href="./apple-touch-icon.png">
-<link rel="manifest" href="./manifest.webmanifest">
+<link rel="manifest" href="./manifest.webmanifest?v=056">
 <style>
 :root{--bg:#f6f5f1;--panel:#fff;--ink:#202a30;--muted:#77838a;--line:#e7e9e8;--accent:#346f74;--acc-soft:#e6f1ed;--warm:#f8ecdc;--danger:#bd574b;--shadow:0 10px 36px rgba(42,62,66,.06)}*{box-sizing:border-box}html{font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Microsoft YaHei",sans-serif;color:var(--ink);background:var(--bg)}body{margin:0}button,input,select,textarea{font:inherit}button{cursor:pointer}button:disabled{opacity:.5;cursor:not-allowed}input,select,textarea{border:1px solid var(--line);border-radius:12px;padding:11px 12px;background:white;color:var(--ink);width:100%;outline:none}textarea{min-height:92px;resize:vertical}input:focus,textarea:focus,select:focus{border-color:#80aba7;box-shadow:0 0 0 3px #e4f2ee}button{border:0;border-radius:11px;padding:10px 14px;background:var(--acc-soft);color:var(--accent);font-weight:650}.primary{background:var(--accent);color:white}.ghost{background:transparent;color:var(--muted)}.danger{color:var(--danger);background:#fbedeb}.app{max-width:1150px;margin:auto;min-height:100dvh;display:grid;grid-template-columns:220px 1fr}.sidebar{padding:33px 16px;border-right:1px solid var(--line);position:sticky;top:0;height:100dvh}.logo{font-size:21px;font-weight:800;letter-spacing:-.7px;padding:0 14px 8px}.logo span{color:var(--accent)}.sub{padding:0 14px 30px;color:var(--muted);font-size:12px}.nav{display:flex;align-items:center;gap:12px;text-align:left;width:100%;margin:5px 0;border-radius:12px;background:transparent;color:#4c5b60;font-weight:600;padding:13px}.nav.active{background:var(--acc-soft);color:var(--accent)}.nav svg{width:19px;height:19px}.sidefoot{position:absolute;bottom:22px;left:28px;color:var(--muted);font-size:12px}.main{padding:35px 38px 105px;min-width:0}.top{display:flex;align-items:center;justify-content:space-between;gap:15px;margin-bottom:23px}.eyebrow{font-size:12px;color:var(--accent);font-weight:750;letter-spacing:2px;text-transform:uppercase}.title{font-size:29px;font-weight:800;letter-spacing:-.7px;margin:6px 0 0}.lead{font-size:13px;color:var(--muted);margin:7px 0 0}.pill{border:1px solid var(--line);background:white;border-radius:100px;padding:9px 13px;color:var(--muted);font-size:12px;white-space:nowrap}.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:15px}.card{background:var(--panel);border:1px solid #eaebea;border-radius:19px;padding:19px;box-shadow:var(--shadow)}.stat label{color:var(--muted);font-size:13px}.stat strong{display:block;font-size:31px;margin:8px 0 1px}.stat small{font-size:12px;color:var(--muted)}.sectionhead{display:flex;justify-content:space-between;align-items:center;gap:12px;margin:27px 0 13px}.sectionhead h2{font-size:17px;margin:0}.scenario-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}.scenario{text-align:left;background:white;border:1px solid var(--line);min-height:128px;display:flex;flex-direction:column;justify-content:space-between;padding:18px;border-radius:17px;color:var(--ink)}.scenario:hover,.item:hover{border-color:#a9ceca}.scenario .emoji{font-size:27px}.scenario .line{display:flex;align-items:center;justify-content:space-between;gap:7px}.scenario b{font-size:15px}.scenario small{color:var(--muted);font-size:12px}.row{display:flex;gap:10px;align-items:center;flex-wrap:wrap}.toolbar{display:flex;flex-wrap:wrap;gap:10px;margin-bottom:15px}.toolbar input{flex:2;min-width:170px}.toolbar select{flex:1;min-width:130px}.item{background:#fff;border:1px solid var(--line);border-radius:15px;padding:16px 17px;margin:10px 0;display:flex;justify-content:space-between;gap:12px;align-items:flex-start}.item main{flex:1;min-width:0}.en{font-size:17px;font-weight:720;line-height:1.5;overflow-wrap:anywhere}.zh{color:#657579;font-size:13px;margin-top:4px}.meta{font-size:11px;color:var(--muted);margin-top:10px}.tag{background:#f1f4f3;border-radius:6px;padding:4px 7px;margin-right:6px;display:inline-block}.act{white-space:nowrap;display:flex;gap:5px}.act button{padding:7px 9px;font-size:12px}.empty{color:var(--muted);text-align:center;padding:45px 16px;background:#fff;border:1px dashed #d9e0dc;border-radius:18px;line-height:1.8}.split{display:grid;grid-template-columns:1fr 1fr;gap:15px}.field{margin:12px 0}.field label{display:block;color:#57686b;font-weight:650;font-size:12px;margin-bottom:7px}.modal-backdrop{position:fixed;inset:0;background:rgba(18,34,34,.36);z-index:20;display:flex;align-items:center;justify-content:center;padding:16px}.modal{background:white;border-radius:19px;padding:24px;max-width:630px;width:100%;max-height:92dvh;overflow-y:auto;box-shadow:0 22px 65px #102c2b30}.modal h2{margin:0 0 8px;font-size:21px}.modal p{font-size:13px;color:var(--muted);line-height:1.7}.modal .actions{display:flex;gap:9px;justify-content:flex-end;margin-top:20px}.note{font-size:13px;color:#728080;line-height:1.8}.studycard{max-width:720px;margin:20px auto}.study-en{font-size:clamp(23px,4vw,35px);font-weight:750;line-height:1.5;margin:22px 0}.study-zh{color:#526c6c;font-size:17px;margin:12px 0}.study-note{white-space:pre-wrap;background:#f7f8f6;padding:13px;border-radius:12px;color:#556566;font-size:13px;margin:15px 0}.progress{height:7px;background:#e8ece8;border-radius:12px;overflow:hidden}.progress>div{height:100%;background:#6a9e93}.choice{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:20px}.choice button{padding:15px 6px}.notice{background:var(--acc-soft);color:#376c65;font-size:13px;line-height:1.7;padding:12px 16px;border-radius:13px}.warn{background:var(--warm);color:#83613c}.mini{font-size:12px;color:var(--muted)}.btnline{display:flex;gap:8px;flex-wrap:wrap}.tabs{display:flex;gap:8px;flex-wrap:wrap}.tabs button{background:#fff;border:1px solid var(--line)}.tabs button.sel{background:var(--accent);color:#fff}.hidden{display:none!important}#toast{position:fixed;bottom:28px;left:50%;transform:translateX(-50%);background:#1e3437;color:white;border-radius:12px;padding:12px 18px;opacity:0;pointer-events:none;transition:opacity .2s;z-index:50;font-size:13px;max-width:90vw;text-align:center}#toast.show{opacity:1}.bottom{display:none}@media(max-width:850px){.app{display:block}.sidebar{display:none}.main{padding:24px 17px 110px}.grid3{gap:9px}.stat{padding:14px}.stat strong{font-size:26px}.scenario-grid{grid-template-columns:repeat(2,1fr)}.bottom{display:flex;position:fixed;bottom:0;left:0;right:0;z-index:10;background:#ffffffed;backdrop-filter:blur(14px);border-top:1px solid var(--line);justify-content:space-around;padding:10px 4px max(10px,env(safe-area-inset-bottom))}.bottom button{background:none;color:#788387;font-size:11px;flex:1;padding:5px 0;display:flex;align-items:center;flex-direction:column;gap:3px}.bottom button.active{color:var(--accent)}.bottom svg{width:20px;height:20px}.title{font-size:25px}.top{align-items:flex-start}.split{grid-template-columns:1fr}.choice{grid-template-columns:1fr 1fr 1fr}.item{padding:13px}.en{font-size:16px}.act{flex-direction:column}.sectionhead{margin-top:23px}}@media(max-width:370px){.grid3{grid-template-columns:repeat(3,1fr)}.stat strong{font-size:23px}.scenario-grid{gap:9px}.scenario{padding:13px}.pill{display:none}}
 
@@ -15,9 +15,14 @@
 .tag-chip{display:inline-flex;align-items:center;gap:5px;background:#eaf3f1;border-radius:999px;padding:5px 9px;margin:3px;font-size:12px;color:#376c65}.tag-chip button{background:transparent;padding:0 3px;color:#9b554d}.tag-chip-link{border:1px solid transparent;cursor:pointer;font-weight:600;line-height:1.5}.tag-chip-link:hover,.tag-chip-link:focus-visible{border-color:#75a8a0;background:#dcece8;outline:none}.tag-chip-link:focus-visible{box-shadow:0 0 0 3px #b5dcd4}
 .red-star{color:#d43f4d!important;background:#fff0f1!important}.fav-star{font-size:19px!important}.fav-toolbar{display:flex;gap:8px;flex-wrap:wrap;margin:12px 0}.fav-toolbar button.sel{background:#d43f4d;color:white}.item .act{flex-shrink:0}
 @media(max-width:850px){.backbar{margin-top:4px}.item .act{gap:4px}}
-.scene-icon{width:43px;height:43px;display:flex;align-items:center;justify-content:center;background:#e8f2ef;border:1px solid #d9e8e3;border-radius:13px;color:#346f74}.scene-svg{width:25px;height:25px;flex-shrink:0}.scenario .emoji{display:none}.title .scene-svg{vertical-align:middle}.note .scene-svg,.row .scene-svg{width:19px;height:19px;vertical-align:middle;margin-right:5px}.ui-svg{width:18px;height:18px;vertical-align:-3px;flex-shrink:0}.nav-icon{display:inline-flex;align-items:center;justify-content:center}.nav-icon .ui-svg{width:21px;height:21px}.act .ui-svg{width:16px;height:16px}.fav-star{font-family:Arial,sans-serif}button .ui-svg{margin-right:3px}</style>
+.scene-icon{width:43px;height:43px;display:flex;align-items:center;justify-content:center;background:#e8f2ef;border:1px solid #d9e8e3;border-radius:13px;color:#346f74}.scene-svg{width:25px;height:25px;flex-shrink:0}.scenario .emoji{display:none}.title .scene-svg{vertical-align:middle}.note .scene-svg,.row .scene-svg{width:19px;height:19px;vertical-align:middle;margin-right:5px}.ui-svg{width:18px;height:18px;vertical-align:-3px;flex-shrink:0}.nav-icon{display:inline-flex;align-items:center;justify-content:center}.nav-icon .ui-svg{width:21px;height:21px}.act .ui-svg{width:16px;height:16px}.fav-star{font-family:Arial,sans-serif}button .ui-svg{margin-right:3px}
+.update-shade{position:fixed;inset:0;background:#10252688;z-index:100;display:flex;align-items:center;justify-content:center;padding:20px}
+.update-panel{background:#fff;border-radius:20px;padding:25px;max-width:410px;width:100%;box-shadow:0 22px 70px #142d3040}
+.update-panel h2{font-size:20px;margin:0 0 12px}.update-panel p{font-size:14px;color:#657579;line-height:1.7}
+.update-panel .actions{display:flex;justify-content:flex-end;gap:10px;margin-top:20px}
+</style>
 </head><body>
-<div class="app"><aside class="sidebar"><img class="brand-logo" src="./nova-speak-logo.png?v=042" alt="Nova Speak"><div class="sub">Your everyday expression library</div><nav id="sideNav"></nav><div class="sidefoot">V0.5.4 · 本机存储 · 可备份</div></aside><div class="main"><div class="brand-mobile"><img class="brand-mobile-full-logo" src="./nova-speak-logo.png?v=042" alt="Nova Speak"></div><div id="content"></div></div></div><nav class="bottom" id="bottomNav"></nav><div id="modalRoot"></div><div id="toast"></div>
+<div class="app"><aside class="sidebar"><img class="brand-logo" src="./nova-speak-logo.png?v=042" alt="Nova Speak"><div class="sub">Your everyday expression library</div><nav id="sideNav"></nav><div class="sidefoot">V0.5.6 · 本机存储 · 可备份</div></aside><div class="main"><div class="brand-mobile"><img class="brand-mobile-full-logo" src="./nova-speak-logo.png?v=042" alt="Nova Speak"></div><div id="content"></div></div></div><nav class="bottom" id="bottomNav"></nav><div id="modalRoot"></div><div id="toast"></div>
 <script>
 (()=>{'use strict';
 const DBKEY='nova_speak_v01';const TYPES=['句子','短语','固定搭配','单词'];const DEFAULT_SCENES=[{id:'sc-chat',name:'日常聊天',emoji:'',note:''},{id:'sc-food',name:'美食餐饮',emoji:'',note:''},{id:'sc-tech',name:'科技数码',emoji:'',note:''},{id:'sc-work',name:'学习工作',emoji:'',note:''}];
@@ -137,4 +142,72 @@ document.addEventListener('click',e=>{let b=e.target.closest('[data-nav]');if(b)
 window.addEventListener('popstate',()=>{restoreRouteFromURL();filterType='';search='';render();window.scrollTo(0,0)});
 restoreRouteFromURL();render();
 })();
-</script></body></html>
+</script>
+<script>
+/* Nova Speak update manager: compare published manifest with verified HTML before offering update. */
+(function(){
+ 'use strict';
+ const CURRENT_VERSION='0.5.6', CHECK_INTERVAL=15*60*1000;
+ let checking=false,lastCheck=0,showing=false;
+ const versionRE=/^\d+\.\d+\.\d+$/;
+ function compare(a,b){const x=a.split('.').map(Number),y=b.split('.').map(Number);for(let i=0;i<3;i++){if(x[i]!==y[i])return x[i]>y[i]?1:-1;}return 0;}
+ async function getLatestHTML(version){
+   const url=new URL('./index.html',location.href);
+   url.searchParams.set('nova_update',version);
+   url.searchParams.set('t',String(Date.now()));
+   const r=await fetch(url.toString(),{cache:'no-store'});
+   if(!r.ok)throw new Error('网页暂时无法获取');
+   const html=await r.text();
+   // The published HTML must explicitly declare the version being offered.
+   if(!html.includes("CURRENT_VERSION='"+version+"'"))throw new Error('新版网页尚未完成部署');
+   return url;
+ }
+ function dialog(version){
+   if(showing||document.getElementById('nova-update-overlay'))return;
+   showing=true;
+   const shade=document.createElement('div');shade.id='nova-update-overlay';shade.className='update-shade';shade.setAttribute('role','dialog');shade.setAttribute('aria-modal','true');shade.setAttribute('aria-label','发现新版本');
+   const panel=document.createElement('div');panel.className='update-panel';
+   const heading=document.createElement('h2');heading.textContent='Nova Speak 有新版本';
+   const desc=document.createElement('p');desc.textContent='当前 V'+CURRENT_VERSION+'，最新 V'+version+'。请先保存正在编辑的内容。已保存的本机学习数据不会被主动删除。';
+   const msg=document.createElement('p');msg.setAttribute('aria-live','polite');
+   const actions=document.createElement('div');actions.className='actions';
+   const later=document.createElement('button');later.type='button';later.textContent='稍后再说';
+   const now=document.createElement('button');now.type='button';now.className='primary';now.textContent='立即更新';
+   later.onclick=()=>{shade.remove();showing=false};
+   now.onclick=async()=>{
+     now.disabled=true;now.textContent='检查新版…';msg.textContent='';
+     try{
+       const url=await getLatestHTML(version);
+       // Avoid an endless reload loop if a standalone iPad app keeps an older document cached.
+       const key='nova-update-attempt-'+version;
+       let count=0;try{count=Number(sessionStorage.getItem(key)||'0')}catch(e){}
+       if(count>=2){throw new Error('此设备仍在使用旧页面，请关闭 App 后从 Safari 打开网站一次。')}
+       try{sessionStorage.setItem(key,String(count+1))}catch(e){}
+       now.textContent='正在更新…';
+       location.replace(url.toString()+location.hash);
+     }catch(err){msg.textContent=(err&&err.message?err.message:'网络暂时不可用')+'，请稍后重试。';now.disabled=false;now.textContent='重试更新';}
+   };
+   actions.append(later,now);panel.append(heading,desc,msg,actions);shade.append(panel);document.body.append(shade);
+ }
+ async function check(force=false){
+   if(checking||showing||(!force&&Date.now()-lastCheck<CHECK_INTERVAL))return;
+   checking=true;lastCheck=Date.now();
+   try{
+     const u=new URL('./version.json',location.href);u.searchParams.set('t',String(Date.now()));
+     const r=await fetch(u.toString(),{cache:'no-store'});if(!r.ok)return;
+     const data=await r.json();if(!data||typeof data.version!=='string'||!versionRE.test(data.version))return;
+     if(compare(data.version,CURRENT_VERSION)<=0)return;
+     // Verify deployment is complete before displaying an update prompt.
+     await getLatestHTML(data.version);
+     dialog(data.version);
+   }catch(e){/* Offline or deployment still in progress: keep using existing app. */}
+   finally{checking=false;}
+ }
+ window.addEventListener('pageshow',()=>check(true));
+ document.addEventListener('visibilitychange',()=>{if(!document.hidden)check(true)});
+ window.addEventListener('focus',()=>check());
+ window.setInterval(()=>{if(!document.hidden)check()},CHECK_INTERVAL);
+ window.novaCheckForUpdates=()=>check(true);
+})();
+</script>
+</body></html>

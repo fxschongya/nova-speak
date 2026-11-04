@@ -1,11 +1,12 @@
 {
-  "name": "Nova Speak - 口语表达复习",
+  "name": "Nova Speak",
   "short_name": "Nova Speak",
+  "description": "生活场景英语口语表达与复习",
   "start_url": "./",
   "scope": "./",
   "display": "standalone",
-  "background_color": "#f6f5f1",
-  "theme_color": "#346f74",
+  "background_color": "#f7faf8",
+  "theme_color": "#267e7b",
   "icons": [
     {
       "src": "./icon-192.png",
