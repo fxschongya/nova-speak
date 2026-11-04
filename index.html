@@ -2,7 +2,7 @@
 <html lang="zh-CN">
 <head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="theme-color" content="#f6f5f1">
-<title>Nova Speak V0.5.8 · 场景学习</title>
+<title>Nova Speak V0.6.0 · 场景学习</title>
 <link rel="icon" type="image/png" href="./favicon.png">
 <link rel="apple-touch-icon" href="./apple-touch-icon.png">
 <link rel="manifest" href="./manifest.webmanifest?v=057">
@@ -66,8 +66,23 @@ html[data-theme="dark"] .update-panel{background:var(--panel);color:var(--ink)}
 html[data-theme="dark"] .update-panel button:not(.primary){background:#2c4246;color:var(--ink)}
 html[data-theme="dark"] .studycard .choice button{filter:saturate(.8)}
 html[data-theme="dark"] .studycard .choice button:focus-visible{outline:2px solid #92d5ca;outline-offset:2px}
+
+/* V0.6.0: theme-aware brand images and safe iPad split-screen navigation. */
+.logo-dark{display:none!important}
+html[data-theme="dark"] .logo-light{display:none!important}
+html[data-theme="dark"] .logo-dark{display:block!important}
+html[data-theme="dark"] .brand-mobile .logo-dark{display:block!important}
+html[data-theme="dark"] .brand-logo.logo-dark{filter:none!important}
+@media(max-width:850px){
+  html,body{min-height:100%;overflow-x:hidden}
+  .bottom{position:fixed!important;left:0;right:0;top:auto!important;
+    bottom:var(--nova-viewport-bottom,0px)!important;
+    width:100%;margin:0;transform:none!important;
+    padding-bottom:max(10px,env(safe-area-inset-bottom))}
+  .main{padding-bottom:calc(120px + env(safe-area-inset-bottom))}
+}
 </style></head><body>
-<div class="app"><aside class="sidebar"><img class="brand-logo" src="./nova-speak-logo.png?v=042" alt="Nova Speak"><div class="sub">Your everyday expression library</div><nav id="sideNav"></nav><div class="sidefoot">V0.5.9 · 本机存储 · 可备份</div></aside><div class="main"><div class="brand-mobile"><img class="brand-mobile-full-logo" src="./nova-speak-logo.png?v=042" alt="Nova Speak"></div><div id="content"></div></div></div><nav class="bottom" id="bottomNav"></nav><div id="modalRoot"></div><div id="toast"></div>
+<div class="app"><aside class="sidebar"><img class="brand-logo logo-light" src="./nova-speak-logo.png" alt="Nova Speak"><img class="brand-logo logo-dark" src="./nova-speak-logo-dark.png" alt="Nova Speak"><div class="sub">Your everyday expression library</div><nav id="sideNav"></nav><div class="sidefoot">V0.6.0 · 本机存储 · 可备份</div></aside><div class="main"><div class="brand-mobile"><img class="brand-mobile-full-logo logo-light" src="./nova-speak-logo.png" alt="Nova Speak"><img class="brand-mobile-full-logo logo-dark" src="./nova-speak-logo-dark.png" alt="Nova Speak"></div><div id="content"></div></div></div><nav class="bottom" id="bottomNav"></nav><div id="modalRoot"></div><div id="toast"></div>
 <script>
 (()=>{'use strict';
 const DBKEY='nova_speak_v01';const TYPES=['句子','短语','固定搭配','单词'];const DEFAULT_SCENES=[{id:'sc-chat',name:'日常聊天',emoji:'',note:''},{id:'sc-food',name:'美食餐饮',emoji:'',note:''},{id:'sc-tech',name:'科技数码',emoji:'',note:''},{id:'sc-work',name:'学习工作',emoji:'',note:''}];
@@ -184,7 +199,12 @@ function annotateSelection(){const lesson=db.lessons.find(x=>x.id===lessonPageId
 function chunkModal(id,start,end){const lesson=db.lessons.find(x=>x.id===lessonPageId);if(!lesson)return;const chunk=(lesson.chunks||[]).find(c=>c.id===id);if(chunk){start=chunk.start;end=chunk.end}const phrase=lesson.text.slice(start,end);modal(`<h2>${chunk?'语块笔记':'新建语块'}</h2><div class="chunk-quote">${escapeHTML(phrase)}</div><form id="chunkForm"><div class="field"><label>翻译 / 备注 *</label><textarea name="note" required placeholder="例如：取决于具体情况；常用于表达不确定性">${escapeHTML(chunk?.note||'')}</textarea></div><div class="actions">${chunk?'<button type="button" class="danger" id="deleteChunk">删除语块</button>':''}<button type="button" data-close>取消</button><button class="primary" type="submit">保存笔记</button></div></form>`);document.getElementById('chunkForm').onsubmit=e=>{e.preventDefault();const note=String(new FormData(e.target).get('note')||'').trim();if(!note)return;if(chunk)chunk.note=note;else{lesson.chunks=lesson.chunks||[];lesson.chunks.push({id:newId(),start,end,note})}if(save()){close();render();toast('语块笔记已保存')}};if(chunk)document.getElementById('deleteChunk').onclick=()=>{if(!confirm('删除这条语块标注？'))return;lesson.chunks=lesson.chunks.filter(c=>c.id!==chunk.id);if(save()){close();render();toast('已删除语块标注')}}}
 function openLesson(id){const lesson=db.lessons.find(x=>x.id===id);if(!lesson)return;lessonPageId=id;scenePageId=lesson.sceneId;view='lesson';history.replaceState({...(history.state||{}),novaSceneType:'课文'},'',location.href);history.pushState({novaLesson:id},'',location.pathname+location.search+'#lesson-'+encodeURIComponent(id));render();window.scrollTo(0,0)}
 function speak(id){const i=db.items.find(x=>x.id===id);if(!i)return;if(!('speechSynthesis'in window)){toast('当前浏览器不支持朗读');return}speechSynthesis.cancel();const u=new SpeechSynthesisUtterance(i.en);u.lang='en-US';u.rate=.88;speechSynthesis.speak(u)}
-document.addEventListener('click',e=>{let b=e.target.closest('[data-nav]');if(b){if(view==='session'&&sessionSummary.length&&!confirm('离开练习？已完成的进度会保留。'))return;setView(b.dataset.nav);return}b=e.target.closest('[data-close]');if(b){close();return}b=e.target.closest('[data-action]');if(!b)return;const a=b.dataset.action,id=b.dataset.id;({newItem:()=>itemModal(),editItem:()=>itemModal(id),newScene:()=>sceneModal(),editScene:()=>sceneModal(id),openScene:()=>{scenePageId=id;lessonPageId='';history.pushState({novaScene:id},'',location.pathname+location.search+'#scene-'+encodeURIComponent(id));view='scene';filterScene='';filterType='句子';search='';render();window.scrollTo(0,0)},backHome:()=>{if(location.hash.startsWith('#scene-')&&history.state?.novaScene)history.back();else setView('home')},addToScene:()=>itemModal(),toggleStar:()=>toggleStar(id),openTag:()=>openTag(id),manageTags,createTag,deleteTag:()=>deleteTag(id),favMode:()=>{collectionMode=b.dataset.mode;render()},startNew:()=>start('new'),startReview:()=>start('review'),startOutput,recordOutput,speechOutput,toggleOutputAnswer,outputNext,downloadOutput,showAnswer:()=>{showAnswer=true;studyPage()},grade:()=>grade(b.dataset.grade),endSession:()=>finish(),speak:()=>speak(id),showImport:importModal,backup,exportCSV:exportTSV,restore}[a]||(()=>{}))()});document.addEventListener('change',e=>{if(e.target.id==='filterScene'){filterScene=e.target.value;render()}if(e.target.id==='filterType'){filterType=e.target.value;render()}if(e.target.id==='tagFilter'){tagFilter=e.target.value;render()}if(e.target.id==='outputScene'){outputScene=e.target.value;render()}});document.addEventListener('input',e=>{if(e.target.id==='search'){const pos=e.target.selectionStart;search=e.target.value;const box=document.getElementById('content');const list=view==='scene'?renderScenePage():view==='favorites'?renderFavorites():renderHome();box.innerHTML=list;const next=document.getElementById('search');next.focus();next.setSelectionRange(pos,pos)}});function restoreRouteFromURL(){
+document.addEventListener('click',e=>{let b=e.target.closest('[data-nav]');if(b){if(view==='session'&&sessionSummary.length&&!confirm('离开练习？已完成的进度会保留。'))return;setView(b.dataset.nav);return}b=e.target.closest('[data-close]');if(b){close();return}b=e.target.closest('[data-action]');if(!b)return;const a=b.dataset.action,id=b.dataset.id;({newItem:()=>itemModal(),editItem:()=>itemModal(id),newScene:()=>sceneModal(),editScene:()=>sceneModal(id),openScene:()=>{scenePageId=id;lessonPageId='';history.pushState({novaScene:id},'',location.pathname+location.search+'#scene-'+encodeURIComponent(id));view='scene';filterScene='';filterType='句子';search='';render();window.scrollTo(0,0)},backHome:()=>{if(location.hash.startsWith('#scene-')&&history.state?.novaScene)history.back();else setView('home')},addToScene:()=>itemModal(),
+newLesson:()=>lessonModal(),editLesson:()=>{const l=db.lessons.find(x=>x.id===id);if(l){scenePageId=l.sceneId;lessonModal(id)}},
+openLesson:()=>openLesson(id),backLesson:()=>{if(location.hash.startsWith('#lesson-')&&history.state?.novaLesson)history.back();else{const l=db.lessons.find(x=>x.id===lessonPageId);scenePageId=l?.sceneId||scenePageId;lessonPageId='';view='scene';filterType='课文';render();window.scrollTo(0,0)}},
+annotateSelection:()=>annotateSelection(),showChunk:()=>chunkModal(id),
+sceneType:()=>{filterType=b.dataset.type||'句子';search='';render()},
+toggleStar:()=>toggleStar(id),openTag:()=>openTag(id),manageTags,createTag,deleteTag:()=>deleteTag(id),favMode:()=>{collectionMode=b.dataset.mode;render()},startNew:()=>start('new'),startReview:()=>start('review'),startOutput,recordOutput,speechOutput,toggleOutputAnswer,outputNext,downloadOutput,showAnswer:()=>{showAnswer=true;studyPage()},grade:()=>grade(b.dataset.grade),endSession:()=>finish(),speak:()=>speak(id),showImport:importModal,backup,exportCSV:exportTSV,restore}[a]||(()=>{}))()});document.addEventListener('change',e=>{if(e.target.id==='filterScene'){filterScene=e.target.value;render()}if(e.target.id==='filterType'){filterType=e.target.value;render()}if(e.target.id==='tagFilter'){tagFilter=e.target.value;render()}if(e.target.id==='outputScene'){outputScene=e.target.value;render()}});document.addEventListener('input',e=>{if(e.target.id==='search'){const pos=e.target.selectionStart;search=e.target.value;const box=document.getElementById('content');const list=view==='scene'?renderScenePage():view==='favorites'?renderFavorites():renderHome();box.innerHTML=list;const next=document.getElementById('search');next.focus();next.setSelectionRange(pos,pos)}});function restoreRouteFromURL(){
  const hash=location.hash;
  if(hash.startsWith('#lesson-')){const id=decodeURIComponent(hash.slice(8));const lesson=db.lessons.find(x=>x.id===id);if(lesson){lessonPageId=id;scenePageId=lesson.sceneId;view='lesson';return}}
  if(hash.startsWith('#scene-')){
@@ -205,7 +225,7 @@ restoreRouteFromURL();render();
 /* Nova Speak update manager: compare published manifest with verified HTML before offering update. */
 (function(){
  'use strict';
- const CURRENT_VERSION='0.5.9', CHECK_INTERVAL=15*60*1000;
+ const CURRENT_VERSION='0.6.0', CHECK_INTERVAL=15*60*1000;
  let checking=false,lastCheck=0,showing=false;
  const versionRE=/^\d+\.\d+\.\d+$/;
  function compare(a,b){const x=a.split('.').map(Number),y=b.split('.').map(Number);for(let i=0;i<3;i++){if(x[i]!==y[i])return x[i]>y[i]?1:-1;}return 0;}
@@ -292,4 +312,23 @@ restoreRouteFromURL();render();
  });
  document.body.appendChild(button);
 })();
-</script></body></html>
+</script>
+<script>
+(function(){
+  const root=document.documentElement;
+  function syncBottom(){
+    if(!window.visualViewport)return;
+    const vv=window.visualViewport;
+    const bottom=Math.max(0,window.innerHeight-(vv.offsetTop+vv.height));
+    root.style.setProperty('--nova-viewport-bottom',bottom.toFixed(1)+'px');
+  }
+  if(window.visualViewport){
+    window.visualViewport.addEventListener('resize',syncBottom,{passive:true});
+    window.visualViewport.addEventListener('scroll',syncBottom,{passive:true});
+  }
+  window.addEventListener('resize',syncBottom,{passive:true});
+  window.addEventListener('pageshow',syncBottom);
+  syncBottom();
+})();
+</script>
+</body></html>
