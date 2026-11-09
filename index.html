@@ -2,7 +2,7 @@
 <html lang="zh-CN">
 <head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="theme-color" content="#f6f5f1">
-<title>Nova Speak V0.6.0 · 场景学习</title>
+<title>Nova Speak V0.6.3 · 场景学习</title>
 <link rel="icon" type="image/png" href="./favicon.png">
 <link rel="apple-touch-icon" href="./apple-touch-icon.png">
 <link rel="manifest" href="./manifest.webmanifest?v=057">
@@ -81,8 +81,10 @@ html[data-theme="dark"] .brand-logo.logo-dark{filter:none!important}
     padding-bottom:max(10px,env(safe-area-inset-bottom))}
   .main{padding-bottom:calc(120px + env(safe-area-inset-bottom))}
 }
+
+.lesson-format-toolbar{display:flex;flex-direction:column;gap:10px;padding:12px;border:1px solid var(--line);border-radius:12px;margin-bottom:12px}.lesson-format-controls{display:flex;gap:8px;align-items:center;flex-wrap:wrap}.lesson-format-controls button{min-width:38px;padding:8px 10px;border:1px solid var(--line);border-radius:8px;background:var(--panel);color:var(--ink)}.lesson-format-controls label{display:inline-flex;align-items:center;gap:5px;font-size:13px}.lesson-format-controls select,.lesson-format-controls input{min-height:36px;border-radius:8px;border:1px solid var(--line);background:var(--panel);color:var(--ink)}.lesson-format-controls input[type=color]{width:44px;padding:2px}.lesson-body span{white-space:pre-wrap}.chunk-mark span{white-space:pre-wrap}
 </style></head><body>
-<div class="app"><aside class="sidebar"><img class="brand-logo logo-light" src="./nova-speak-logo.png" alt="Nova Speak"><img class="brand-logo logo-dark" src="./nova-speak-logo-dark.png" alt="Nova Speak"><div class="sub">Your everyday expression library</div><nav id="sideNav"></nav><div class="sidefoot">V0.6.0 · 本机存储 · 可备份</div></aside><div class="main"><div class="brand-mobile"><img class="brand-mobile-full-logo logo-light" src="./nova-speak-logo.png" alt="Nova Speak"><img class="brand-mobile-full-logo logo-dark" src="./nova-speak-logo-dark.png" alt="Nova Speak"></div><div id="content"></div></div></div><nav class="bottom" id="bottomNav"></nav><div id="modalRoot"></div><div id="toast"></div>
+<div class="app"><aside class="sidebar"><img class="brand-logo logo-light" src="./nova-speak-logo.png" alt="Nova Speak"><img class="brand-logo logo-dark" src="./nova-speak-logo-dark.png" alt="Nova Speak"><div class="sub">Your everyday expression library</div><nav id="sideNav"></nav><div class="sidefoot">V0.6.3 · 本机存储 · 可备份</div></aside><div class="main"><div class="brand-mobile"><img class="brand-mobile-full-logo logo-light" src="./nova-speak-logo.png" alt="Nova Speak"><img class="brand-mobile-full-logo logo-dark" src="./nova-speak-logo-dark.png" alt="Nova Speak"></div><div id="content"></div></div></div><nav class="bottom" id="bottomNav"></nav><div id="modalRoot"></div><div id="toast"></div>
 <script>
 (()=>{'use strict';
 const DBKEY='nova_speak_v01';const TYPES=['句子','短语','固定搭配','单词'];const DEFAULT_SCENES=[{id:'sc-chat',name:'日常聊天',emoji:'',note:''},{id:'sc-food',name:'美食餐饮',emoji:'',note:''},{id:'sc-tech',name:'科技数码',emoji:'',note:''},{id:'sc-work',name:'学习工作',emoji:'',note:''}];
@@ -192,17 +194,86 @@ function downloadOutput(){if(!outputURL)return;const a=document.createElement('a
 function toggleOutputAnswer(){stopOutputRecording();stopSpeechRecognition();outputRevealed=!outputRevealed;render();if(outputURL){const box=document.getElementById('outputAudio');if(box)box.innerHTML=`<audio controls style="width:100%" src="${outputURL}"></audio><button data-action="downloadOutput">保存本次录音</button>`}}
 function outputNext(){if(!outputRevealed)return;const choice=document.activeElement?.dataset?.grade||'hard';const i=outputQueue[outputIndex];outputResults.push({id:i.id,grade:choice,en:i.en,zh:i.zh,sceneId:i.sceneId,transcript:speechText,at:new Date().toISOString()});clearOutputAudio();outputIndex++;outputRevealed=false;resetSpeechState();if(outputIndex>=outputQueue.length){db.outputHistory.push({id:newId(),date:new Date().toISOString(),results:outputResults.map(x=>({...x}))});save();outputQueue=[];toast('主动输出完成：已保存 '+outputResults.length+' 条练习记录，不影响间隔复习进度')}render()}
 
-function lessonModal(id){const lesson=db.lessons.find(x=>x.id===id)||{title:'',text:'',note:''};const scene=getScene(scenePageId);if(!scene)return toast('请先进入生活场景');modal(`<h2>${id?'编辑课文':'导入课文'}</h2><p>课文属于「${escapeHTML(scene.name)}」场景。可以粘贴整篇英文课文，保存后进入独立阅读页面选词组并做笔记。</p><form id="lessonForm"><div class="field"><label>课文标题 *</label><input name="title" required maxlength="180" value="${escapeHTML(lesson.title)}" placeholder="例如：A Conversation at a Restaurant"></div><div class="field"><label>英文课文 *</label><textarea name="text" required style="min-height:260px" placeholder="在这里粘贴英文课文…">${escapeHTML(lesson.text)}</textarea></div><div class="field"><label>整篇课文笔记（可选）</label><textarea name="note" placeholder="文章概要、语法重点、整体翻译…">${escapeHTML(lesson.note||'')}</textarea></div><div class="actions">${id?'<button class="danger" type="button" id="deleteLesson">删除课文</button>':''}<button data-close type="button">取消</button><button class="primary" type="submit">保存课文</button></div></form>`);document.getElementById('lessonForm').onsubmit=e=>{e.preventDefault();const f=new FormData(e.target);const title=String(f.get('title')||'').trim(),text=String(f.get('text')||'').trim(),note=String(f.get('note')||'').trim();if(!title||!text)return toast('标题和课文正文不能为空');if(id){if(text!==lesson.text&&(lesson.chunks||[]).length&&!confirm('修改课文正文会清除原有语块标注，确定继续吗？'))return;if(text!==lesson.text)lesson.chunks=[];Object.assign(lesson,{title,text,note})}else db.lessons.push({id:newId(),sceneId:scene.id,title,text,note,chunks:[],createdAt:new Date().toISOString()});if(save()){close();render();toast('课文已保存')}};if(id)document.getElementById('deleteLesson').onclick=()=>{if(confirm('确定删除这篇课文及全部语块笔记吗？')){db.lessons=db.lessons.filter(x=>x.id!==id);save();close();render();toast('课文已删除')}}}
-function lessonTextHTML(lesson){const text=lesson.text||'';const chunks=(lesson.chunks||[]).filter(c=>Number.isInteger(c.start)&&Number.isInteger(c.end)&&c.start>=0&&c.end<=text.length&&c.end>c.start).sort((a,b)=>a.start-b.start);let out='',last=0;for(const c of chunks){if(c.start<last)continue;out+=escapeHTML(text.slice(last,c.start));out+=`<button type="button" class="chunk-mark" data-action="showChunk" data-id="${escapeHTML(c.id)}" title="查看语块笔记">${escapeHTML(text.slice(c.start,c.end))}</button>`;last=c.end}return out+escapeHTML(text.slice(last))}
-function renderLessonPage(){const lesson=db.lessons.find(x=>x.id===lessonPageId);if(!lesson)return renderHome();return `<div class="backbar"><button data-action="backLesson" type="button">← 返回${escapeHTML(getScene(lesson.sceneId)?.name||'场景')}</button></div>`+header('READING NOTES',escapeHTML(lesson.title),'选中英文连续文字 → 点击「标注选中语块」 → 写下翻译或笔记。',`<button data-action="editLesson" data-id="${escapeHTML(lesson.id)}">编辑课文</button>`)+`<div class="card"><div class="row" style="justify-content:space-between;margin-bottom:14px"><span class="mini">已标注 ${(lesson.chunks||[]).length} 个语块</span><button class="primary" data-action="annotateSelection">＋ 标注选中语块</button></div><div id="lessonBody" class="lesson-body">${lessonTextHTML(lesson)}</div></div>${lesson.note?`<div class="card" style="margin-top:14px"><b>整篇课文笔记</b><p class="lesson-note">${escapeHTML(lesson.note)}</p></div>`:''}<p class="note">提示：iPad 上长按英文并拖动选择范围，再点击「标注选中语块」。已标注的语块点击后可查看、修改或删除笔记。</p>`}
-function annotateSelection(){const lesson=db.lessons.find(x=>x.id===lessonPageId),root=document.getElementById('lessonBody');const selection=window.getSelection();if(!lesson||!root||!selection||selection.rangeCount===0||selection.isCollapsed)return toast('请先在课文中选中一段英文');const range=selection.getRangeAt(0);if(!root.contains(range.commonAncestorContainer))return toast('请在课文正文中选中文字');const pre=document.createRange();pre.selectNodeContents(root);pre.setEnd(range.startContainer,range.startOffset);const start=pre.toString().length,end=start+range.toString().length;if(start>=end||end>lesson.text.length)return toast('选中范围无效');if((lesson.chunks||[]).some(c=>start<c.end&&end>c.start))return toast('选中范围与已有语块重叠，请重新选择');selection.removeAllRanges();chunkModal(null,start,end)}
+function lessonModal(id){const lesson=db.lessons.find(x=>x.id===id)||{title:'',text:'',note:''};const scene=getScene(scenePageId);if(!scene)return toast('请先进入生活场景');modal(`<h2>${id?'编辑课文':'导入课文'}</h2><p>课文属于「${escapeHTML(scene.name)}」场景。可以粘贴整篇英文课文，保存后进入独立阅读页面选词组并做笔记。</p><form id="lessonForm"><div class="field"><label>课文标题 *</label><input name="title" required maxlength="180" value="${escapeHTML(lesson.title)}" placeholder="例如：A Conversation at a Restaurant"></div><div class="field"><label>英文课文 *</label><textarea name="text" required style="min-height:260px" placeholder="在这里粘贴英文课文…">${escapeHTML(lesson.text)}</textarea></div><div class="field"><label>整篇课文笔记（可选）</label><textarea name="note" placeholder="文章概要、语法重点、整体翻译…">${escapeHTML(lesson.note||'')}</textarea></div><div class="actions">${id?'<button class="danger" type="button" id="deleteLesson">删除课文</button>':''}<button data-close type="button">取消</button><button class="primary" type="submit">保存课文</button></div></form>`);document.getElementById('lessonForm').onsubmit=e=>{e.preventDefault();const f=new FormData(e.target);const title=String(f.get('title')||'').trim(),text=String(f.get('text')||'').trim(),note=String(f.get('note')||'').trim();if(!title||!text)return toast('标题和课文正文不能为空');if(id){if(text!==lesson.text&&((lesson.chunks||[]).length||(lesson.formats||[]).length)&&!confirm('修改课文正文会清除原有语块标注和文字格式，确定继续吗？'))return;if(text!==lesson.text){lesson.chunks=[];lesson.formats=[];}Object.assign(lesson,{title,text,note})}else db.lessons.push({id:newId(),sceneId:scene.id,title,text,note,chunks:[],formats:[],createdAt:new Date().toISOString()});if(save()){close();render();toast('课文已保存')}};if(id)document.getElementById('deleteLesson').onclick=()=>{if(confirm('确定删除这篇课文及全部语块笔记吗？')){db.lessons=db.lessons.filter(x=>x.id!==id);save();close();render();toast('课文已删除')}}}
+function lessonTextHTML(lesson){
+ const text=lesson.text||'',chunks=(lesson.chunks||[]).filter(c=>Number.isInteger(c.start)&&Number.isInteger(c.end)&&c.start>=0&&c.end<=text.length&&c.end>c.start).sort((a,b)=>a.start-b.start);
+ const formats=(lesson.formats||[]).filter(f=>Number.isInteger(f.start)&&Number.isInteger(f.end)&&f.start>=0&&f.end<=text.length&&f.end>f.start);
+ const points=new Set([0,text.length]);for(const c of chunks){points.add(c.start);points.add(c.end)}for(const f of formats){points.add(f.start);points.add(f.end)}
+ const bounds=[...points].sort((x,y)=>x-y);let out='',openChunk=null;
+ for(let i=0;i<bounds.length-1;i++){
+  const start=bounds[i],end=bounds[i+1];if(end<=start)continue;
+  const active=formats.filter(f=>f.start<=start&&f.end>=end);let bold=false,italic=false,underline=false,size='',color='';
+  for(const f of active){if(Object.hasOwn(f,'bold'))bold=!!f.bold;if(Object.hasOwn(f,'italic'))italic=!!f.italic;if(Object.hasOwn(f,'underline'))underline=!!f.underline;if(Object.hasOwn(f,'size'))size=f.size;if(Object.hasOwn(f,'color'))color=f.color}
+  const styles=[];if(bold)styles.push('font-weight:700');if(italic)styles.push('font-style:italic');if(underline)styles.push('text-decoration:underline');if(size&&/^(1[2-9]|2[0-9]|3[0-6])$/.test(String(size)))styles.push('font-size:'+size+'px');if(color&&/^#[0-9a-fA-F]{6}$/.test(color))styles.push('color:'+color);
+  const fragment=styles.length?'<span style="'+styles.join(';')+'">'+escapeHTML(text.slice(start,end))+'</span>':escapeHTML(text.slice(start,end));
+  const chunk=chunks.find(c=>c.start<=start&&c.end>=end);
+  if(openChunk!==chunk){if(openChunk)out+='</button>';if(chunk)out+=`<button type="button" class="chunk-mark" data-action="showChunk" data-id="${escapeHTML(chunk.id)}" title="查看语块笔记">`;openChunk=chunk||null}out+=fragment;
+ }
+ if(openChunk)out+='</button>';
+ return out;
+}
+
+function renderLessonPage(){const lesson=db.lessons.find(x=>x.id===lessonPageId);if(!lesson)return renderHome();return `<div class="backbar"><button data-action="backLesson" type="button">← 返回${escapeHTML(getScene(lesson.sceneId)?.name||'场景')}</button></div>`+header('READING NOTES',escapeHTML(lesson.title),'选中英文连续文字 → 点击「标注选中语块」 → 写下翻译或笔记。',`<button data-action="editLesson" data-id="${escapeHTML(lesson.id)}">编辑课文</button>`)+`<div class="card"><div class="row" style="justify-content:space-between;margin-bottom:14px"><span class="mini">已标注 ${(lesson.chunks||[]).length} 个语块</span><button class="primary" data-action="annotateSelection">＋ 标注选中语块</button></div><div class="lesson-format-toolbar"><div class="mini">文字格式：选中课文文字后设置样式；再次点击 B / I / U 可取消对应样式</div><div class="lesson-format-controls"><button type="button" data-action="formatLesson" data-format="bold" title="加粗"><b>B</b></button><button type="button" data-action="formatLesson" data-format="italic" title="斜体"><i>I</i></button><button type="button" data-action="formatLesson" data-format="underline" title="下划线"><u>U</u></button><label>字号 <select id="lessonFontSize" aria-label="字号"><option value="">默认</option><option value="14">14</option><option value="16">16</option><option value="18">18</option><option value="20">20</option><option value="24">24</option><option value="28">28</option><option value="32">32</option></select></label><label>颜色 <input id="lessonFontColor" type="color" value="#287e78" aria-label="文字颜色"></label><button type="button" data-action="clearLessonFormat">清除格式</button></div></div><div id="lessonBody" class="lesson-body">${lessonTextHTML(lesson)}</div></div>${lesson.note?`<div class="card" style="margin-top:14px"><b>整篇课文笔记</b><p class="lesson-note">${escapeHTML(lesson.note)}</p></div>`:''}<p class="note">提示：iPad 上长按英文并拖动选择范围，再点击「标注选中语块」。已标注的语块点击后可查看、修改或删除笔记。</p>`}
+// iPad Safari may collapse the native selection as soon as the annotation button is tapped.
+// Cache offsets while the user is selecting, before the button receives focus.
+let cachedLessonSelection=null;
+function readLessonSelection(){
+  const lesson=db.lessons.find(x=>x.id===lessonPageId),root=document.getElementById('lessonBody');
+  const selection=window.getSelection();
+  if(!lesson||!root||!selection||!selection.rangeCount||selection.isCollapsed)return null;
+  const range=selection.getRangeAt(0);
+  if(!root.contains(range.startContainer)||!root.contains(range.endContainer))return null;
+  const pre=document.createRange();pre.selectNodeContents(root);
+  try{pre.setEnd(range.startContainer,range.startOffset)}catch(e){return null}
+  const start=pre.toString().length,end=start+range.toString().length;
+  if(start<0||start>=end||end>lesson.text.length)return null;
+  return {lessonId:lesson.id,start,end};
+}
+function rememberLessonSelection(){
+  if(view!=='lesson')return;
+  const next=readLessonSelection();if(next)cachedLessonSelection=next;
+}
+document.addEventListener('selectionchange',rememberLessonSelection);
+document.addEventListener('pointerup',rememberLessonSelection,{passive:true});
+document.addEventListener('touchend',()=>setTimeout(rememberLessonSelection,0),{passive:true});
+document.addEventListener('pointerdown',e=>{
+  if(e.target.closest('[data-action="annotateSelection"]'))rememberLessonSelection();
+},true);
+document.addEventListener('change',e=>{if(e.target.id==='lessonFontSize'){formatLesson('size',e.target.value||'default')}if(e.target.id==='lessonFontColor'){formatLesson('color',e.target.value)}});
+document.addEventListener('pointerdown',e=>{if(e.target.closest('.lesson-format-toolbar'))rememberLessonSelection()},true);
+function annotateSelection(){
+  const lesson=db.lessons.find(x=>x.id===lessonPageId);
+  const selection=readLessonSelection()||(cachedLessonSelection?.lessonId===lessonPageId?cachedLessonSelection:null);
+  if(!lesson||!selection)return toast('请先在课文中选中一段英文');
+  const {start,end}=selection;
+  if((lesson.chunks||[]).some(c=>start<c.end&&end>c.start))return toast('选中范围与已有语块重叠，请重新选择');
+  cachedLessonSelection=null;
+  window.getSelection()?.removeAllRanges();
+  chunkModal(null,start,end);
+}
+function formatLesson(kind,value){
+ const lesson=db.lessons.find(x=>x.id===lessonPageId);
+ const selection=readLessonSelection()||(cachedLessonSelection?.lessonId===lessonPageId?cachedLessonSelection:null);
+ if(!lesson||!selection)return toast('请先选中课文中的英文文字');
+ const {start,end}=selection;const item={start,end};
+ if(kind==='clear'){
+  lesson.formats=(lesson.formats||[]).flatMap(f=>{if(f.end<=start||f.start>=end)return[f];const parts=[];if(f.start<start)parts.push({...f,end:start});if(f.end>end)parts.push({...f,start:end});return parts});
+ }else{
+  if(kind==='bold'||kind==='italic'||kind==='underline'){const current=(lesson.formats||[]).filter(f=>f.start<=start&&f.end>=end&&Object.hasOwn(f,kind));item[kind]=!(current.length&&current[current.length-1][kind]===true);}
+  else if(kind==='size')item.size=value==='default'?'default':String(value);
+  else if(kind==='color')item.color=String(value);
+  else return;
+  (lesson.formats||(lesson.formats=[])).push(item);
+ }
+ if(save()){cachedLessonSelection={lessonId:lesson.id,start,end};render();toast(kind==='clear'?'已清除所选范围格式':'文字格式已保存')}
+}
 function chunkModal(id,start,end){const lesson=db.lessons.find(x=>x.id===lessonPageId);if(!lesson)return;const chunk=(lesson.chunks||[]).find(c=>c.id===id);if(chunk){start=chunk.start;end=chunk.end}const phrase=lesson.text.slice(start,end);modal(`<h2>${chunk?'语块笔记':'新建语块'}</h2><div class="chunk-quote">${escapeHTML(phrase)}</div><form id="chunkForm"><div class="field"><label>翻译 / 备注 *</label><textarea name="note" required placeholder="例如：取决于具体情况；常用于表达不确定性">${escapeHTML(chunk?.note||'')}</textarea></div><div class="actions">${chunk?'<button type="button" class="danger" id="deleteChunk">删除语块</button>':''}<button type="button" data-close>取消</button><button class="primary" type="submit">保存笔记</button></div></form>`);document.getElementById('chunkForm').onsubmit=e=>{e.preventDefault();const note=String(new FormData(e.target).get('note')||'').trim();if(!note)return;if(chunk)chunk.note=note;else{lesson.chunks=lesson.chunks||[];lesson.chunks.push({id:newId(),start,end,note})}if(save()){close();render();toast('语块笔记已保存')}};if(chunk)document.getElementById('deleteChunk').onclick=()=>{if(!confirm('删除这条语块标注？'))return;lesson.chunks=lesson.chunks.filter(c=>c.id!==chunk.id);if(save()){close();render();toast('已删除语块标注')}}}
-function openLesson(id){const lesson=db.lessons.find(x=>x.id===id);if(!lesson)return;lessonPageId=id;scenePageId=lesson.sceneId;view='lesson';history.replaceState({...(history.state||{}),novaSceneType:'课文'},'',location.href);history.pushState({novaLesson:id},'',location.pathname+location.search+'#lesson-'+encodeURIComponent(id));render();window.scrollTo(0,0)}
+function openLesson(id){cachedLessonSelection=null;const lesson=db.lessons.find(x=>x.id===id);if(!lesson)return;lessonPageId=id;scenePageId=lesson.sceneId;view='lesson';history.replaceState({...(history.state||{}),novaSceneType:'课文'},'',location.href);history.pushState({novaLesson:id},'',location.pathname+location.search+'#lesson-'+encodeURIComponent(id));render();window.scrollTo(0,0)}
 function speak(id){const i=db.items.find(x=>x.id===id);if(!i)return;if(!('speechSynthesis'in window)){toast('当前浏览器不支持朗读');return}speechSynthesis.cancel();const u=new SpeechSynthesisUtterance(i.en);u.lang='en-US';u.rate=.88;speechSynthesis.speak(u)}
 document.addEventListener('click',e=>{let b=e.target.closest('[data-nav]');if(b){if(view==='session'&&sessionSummary.length&&!confirm('离开练习？已完成的进度会保留。'))return;setView(b.dataset.nav);return}b=e.target.closest('[data-close]');if(b){close();return}b=e.target.closest('[data-action]');if(!b)return;const a=b.dataset.action,id=b.dataset.id;({newItem:()=>itemModal(),editItem:()=>itemModal(id),newScene:()=>sceneModal(),editScene:()=>sceneModal(id),openScene:()=>{scenePageId=id;lessonPageId='';history.pushState({novaScene:id},'',location.pathname+location.search+'#scene-'+encodeURIComponent(id));view='scene';filterScene='';filterType='句子';search='';render();window.scrollTo(0,0)},backHome:()=>{if(location.hash.startsWith('#scene-')&&history.state?.novaScene)history.back();else setView('home')},addToScene:()=>itemModal(),
 newLesson:()=>lessonModal(),editLesson:()=>{const l=db.lessons.find(x=>x.id===id);if(l){scenePageId=l.sceneId;lessonModal(id)}},
 openLesson:()=>openLesson(id),backLesson:()=>{if(location.hash.startsWith('#lesson-')&&history.state?.novaLesson)history.back();else{const l=db.lessons.find(x=>x.id===lessonPageId);scenePageId=l?.sceneId||scenePageId;lessonPageId='';view='scene';filterType='课文';render();window.scrollTo(0,0)}},
-annotateSelection:()=>annotateSelection(),showChunk:()=>chunkModal(id),
+annotateSelection:()=>annotateSelection(),formatLesson:()=>formatLesson(b.dataset.format),clearLessonFormat:()=>formatLesson('clear'),showChunk:()=>chunkModal(id),
 sceneType:()=>{filterType=b.dataset.type||'句子';search='';render()},
 toggleStar:()=>toggleStar(id),openTag:()=>openTag(id),manageTags,createTag,deleteTag:()=>deleteTag(id),favMode:()=>{collectionMode=b.dataset.mode;render()},startNew:()=>start('new'),startReview:()=>start('review'),startOutput,recordOutput,speechOutput,toggleOutputAnswer,outputNext,downloadOutput,showAnswer:()=>{showAnswer=true;studyPage()},grade:()=>grade(b.dataset.grade),endSession:()=>finish(),speak:()=>speak(id),showImport:importModal,backup,exportCSV:exportTSV,restore}[a]||(()=>{}))()});document.addEventListener('change',e=>{if(e.target.id==='filterScene'){filterScene=e.target.value;render()}if(e.target.id==='filterType'){filterType=e.target.value;render()}if(e.target.id==='tagFilter'){tagFilter=e.target.value;render()}if(e.target.id==='outputScene'){outputScene=e.target.value;render()}});document.addEventListener('input',e=>{if(e.target.id==='search'){const pos=e.target.selectionStart;search=e.target.value;const box=document.getElementById('content');const list=view==='scene'?renderScenePage():view==='favorites'?renderFavorites():renderHome();box.innerHTML=list;const next=document.getElementById('search');next.focus();next.setSelectionRange(pos,pos)}});function restoreRouteFromURL(){
  const hash=location.hash;
@@ -225,7 +296,7 @@ restoreRouteFromURL();render();
 /* Nova Speak update manager: compare published manifest with verified HTML before offering update. */
 (function(){
  'use strict';
- const CURRENT_VERSION='0.6.0', CHECK_INTERVAL=15*60*1000;
+ const CURRENT_VERSION='0.6.3', CHECK_INTERVAL=15*60*1000;
  let checking=false,lastCheck=0,showing=false;
  const versionRE=/^\d+\.\d+\.\d+$/;
  function compare(a,b){const x=a.split('.').map(Number),y=b.split('.').map(Number);for(let i=0;i<3;i++){if(x[i]!==y[i])return x[i]>y[i]?1:-1;}return 0;}
