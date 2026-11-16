@@ -2,7 +2,7 @@
 <html lang="zh-CN">
 <head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="theme-color" content="#f6f5f1">
-<title>Nova Speak V0.10.0 · 场景学习</title>
+<title>Nova Speak V0.10.4 · 场景学习</title>
 <link rel="icon" type="image/png" href="./favicon.png">
 <link rel="apple-touch-icon" href="./apple-touch-icon.png">
 <link rel="manifest" href="./manifest.webmanifest?v=057">
@@ -51,7 +51,7 @@ html[data-theme="dark"] .chunk-mark{color:#8fc3ff!important}
 
 .lesson-sortbar{display:flex;align-items:center;flex-wrap:wrap;gap:10px;margin:10px 0 14px}.lesson-sortbar label{display:flex;align-items:center;gap:8px;flex-wrap:wrap}.lesson-sortbar select{max-width:100%;min-width:180px}.lesson-sort-item{position:relative}.lesson-drag-handle{align-self:center;flex:0 0 38px;min-height:50px;display:flex;align-items:center;justify-content:center;font-size:26px;font-weight:700;cursor:grab;touch-action:none;user-select:none;-webkit-user-select:none;color:var(--accent,#328d83);border:1px solid var(--line);border-radius:10px;margin-right:8px}.lesson-sort-item.dragging-lesson{opacity:.65}.lesson-sort-item.drag-target{outline:2px dashed #379edb;outline-offset:-2px}.lesson-sort-item .act{flex-wrap:wrap}@media(max-width:600px){.lesson-sort-item{gap:6px}.lesson-sort-item .act{gap:4px}.lesson-sort-item .act button{padding:7px 9px}}
 
-/* V0.10.0: expression card interaction and persistence hardening */
+/* V0.10.3: expression card interaction and persistence hardening */
 .expression-swipe{position:relative;overflow:hidden;border-radius:15px;margin:10px 0;touch-action:pan-y}
 .expression-swipe .expression-item{position:relative;z-index:1;margin:0;transition:transform .18s ease;will-change:transform;background:var(--panel)}
 .expression-swipe.swipe-open .expression-item{transform:translateX(-84px)}
@@ -67,7 +67,7 @@ html[data-theme="dark"] .expression-swipe .expression-item{background:var(--pane
 html[data-theme="dark"] .expression-note-panel{background:#29413f;color:#e8f0ef}
 @media(hover:hover){.expression-swipe:not(.swipe-open) .expression-item:hover{border-color:#a9ceca}}
 
-/* V0.10.0: mobile scroll shell - keep the bottom navigation outside the scrollable region. */
+/* V0.10.3: mobile scroll shell - keep the bottom navigation outside the scrollable region. */
 @media (max-width:850px){
   html,body{height:100%;height:100svh;min-height:0;overflow:hidden!important;overscroll-behavior:none}
   body{position:relative;width:100%;}
@@ -79,7 +79,7 @@ html[data-theme="dark"] .expression-note-panel{background:#29413f;color:#e8f0ef}
   .main{padding-bottom:calc(120px + env(safe-area-inset-bottom))!important;}
 }
 
-/* V0.10.0: keyboard-safe editor: one scroll area, visible focus and footer. */
+/* V0.10.3: keyboard-safe editor: one scroll area, visible focus and footer. */
 #modalRoot .modal-backdrop{box-sizing:border-box;overflow:hidden;min-height:0;justify-content:center}
 #modalRoot .modal{display:flex;flex-direction:column;min-height:0;max-height:calc(var(--nova-visible-height, 100dvh) - 24px)!important;overflow-y:auto!important;overscroll-behavior:contain;scroll-padding-top:72px;scroll-padding-bottom:120px}
 #modalRoot .modal .field{scroll-margin-top:65px;scroll-margin-bottom:110px}
@@ -88,7 +88,7 @@ html[data-theme="dark"] .expression-note-panel{background:#29413f;color:#e8f0ef}
 #modalRoot.nova-keyboard-open .modal{max-height:calc(var(--nova-visible-height, 100dvh) - 16px)!important}
 @media(max-width:850px){#modalRoot .modal-backdrop{padding:12px!important}#modalRoot.nova-keyboard-open .modal-backdrop{padding:8px 12px!important}}
 
-/* V0.10.0: iPad split-view keyboard and editor dialog stability. */
+/* V0.10.3: iPad split-view keyboard and editor dialog stability. */
 #modalRoot:empty{pointer-events:none}
 #modalRoot:not(:empty){position:fixed;inset:0;z-index:210;pointer-events:none}
 #modalRoot .modal-backdrop{position:absolute;inset:0;pointer-events:auto;overflow:hidden;align-items:center}
@@ -107,14 +107,14 @@ html[data-theme="dark"] input[type="color"]{color-scheme:dark}
  html[data-theme="dark"] .modal .actions{background:var(--panel)}
 }
 
-/* V0.10.0: stable modal coordinates for iPadOS native composition UI. */
+/* V0.10.3: stable modal coordinates for iPadOS native composition UI. */
 #modalRoot:not(:empty){position:fixed!important;inset:0!important;width:auto!important;height:auto!important;transform:none!important;}
 #modalRoot .modal-backdrop{position:absolute!important;inset:0!important;}
 #modalRoot .modal{max-height:calc(100svh - 28px)!important;}
 #modalRoot.nova-keyboard-open .modal{max-height:calc(100svh - 16px)!important;}
 
 
-/* V0.10.0 IPA keyboard and visible connected-speech markings */
+/* V0.10.3 IPA keyboard and visible connected-speech markings */
 .ipa-launch{margin:7px 0 0;padding:6px 10px;font-size:13px;border:1px solid var(--line);border-radius:9px}
 .ipa-keyboard{margin:8px 0 12px;padding:10px;border:1px solid var(--line);border-radius:12px;background:var(--panel)}
 .ipa-keyboard[hidden]{display:none!important}
@@ -126,7 +126,7 @@ html[data-theme="dark"] input[type="color"]{color-scheme:dark}
 .pron-join-anchor{display:inline-block;position:relative;width:0;height:0;vertical-align:baseline;pointer-events:auto;cursor:pointer}
 .pron-join-anchor::after{content:"⌣";position:absolute;left:-.43em;top:-.05em;font-family:system-ui,sans-serif;font-size:16px;font-weight:600;line-height:1;color:#d47734;white-space:nowrap;pointer-events:auto}
 .pron-join-anchor:focus-visible::after{outline:2px solid var(--accent)}
-.pron-drop{text-decoration:line-through;text-decoration-color:#e67b42;text-decoration-thickness:2px;border-bottom:0}
+.pron-drop{border-bottom:0}
 .pron-flap{border-bottom:2px dotted #d47734}
 .pron-weak{border-bottom:2px dashed #d47734}
 .pron-unreleased{border-bottom:3px double #d47734}
@@ -134,16 +134,22 @@ html[data-theme="dark"] input[type="color"]{color-scheme:dark}
 .pron-toolbar{display:flex;gap:6px;flex-wrap:wrap;margin-top:9px}
 .pron-toolbar button{font-size:12px;padding:7px 9px}
 
-/* V0.10.0 overlapping pronunciation annotations: separate clickable tags, no word-wide extra underline */
+/* V0.10.3 overlapping pronunciation annotations: separate clickable tags, no word-wide extra underline */
 .pron-stack{position:relative;display:inline;cursor:pointer}
 .pron-stack-text{border-bottom:1px dotted #d47734;box-decoration-break:clone;-webkit-box-decoration-break:clone}
 .pron-stack-labels{display:inline;white-space:nowrap}
 .pron-mini{display:inline-block;vertical-align:super;font-size:10px;line-height:1.1;color:#d47734;padding:0 2px;border:1px solid #d4773455;border-radius:3px;margin-left:1px;cursor:pointer}
-/* V0.10.0: pronunciation badges are visual only, never part of selectable lesson text. */
+/* V0.10.3: pronunciation badges are visual only, never part of selectable lesson text. */
 .pron-mini::after{content:attr(data-pron-symbol)}
 .pron-mini{user-select:none;-webkit-user-select:none}
 .pron-stack-text{border-bottom:0!important}
-.pron-stack .pron-stack-text.pron-drop{text-decoration:line-through;text-decoration-color:#e67b42}
+/* Diagonal deletion marks on exact letters, not a horizontal strike across words. */
+.pron-stack .pron-stack-text.pron-drop{text-decoration:none!important}
+.pron-drop-letter{position:relative;display:inline;white-space:pre}
+.pron-drop-letter::after{content:"";position:absolute;pointer-events:none;left:5%;right:5%;top:50%;height:2px;background:#e67b42;transform:rotate(-56deg);transform-origin:center;border-radius:2px}
+.pron-drop-letter.pron-drop-space::after{display:none}
+/* Drop marks use the diagonal slash itself; do not add a redundant ∅ badge. */
+.pron-drop-letter::after{z-index:1}
 
 .pron-choice-list{display:flex;flex-direction:column;gap:8px;margin:14px 0}
 .pron-choice-list button{text-align:left;white-space:normal}
@@ -242,7 +248,7 @@ html[data-theme="dark"] .lesson-body button.chunk-mark{color:#8fc3ff!important}
 .lesson-body button.chunk-mark sup.chunk-star{color:#1666d1!important;background:transparent!important}
 html[data-theme="dark"] .lesson-body button.chunk-mark sup.chunk-star{color:#8fc3ff!important}
 
-/* V0.10.0: scroll shell is the only content scroller on compact screens. */
+/* V0.10.3: scroll shell is the only content scroller on compact screens. */
 @media(max-width:850px){
  html,body{height:100%;height:100dvh;overflow:hidden!important}
  .app{height:100%;height:100dvh;min-height:0!important;overflow-y:auto!important;overflow-x:hidden!important;overscroll-behavior-y:contain}
@@ -250,7 +256,7 @@ html[data-theme="dark"] .lesson-body button.chunk-mark sup.chunk-star{color:#8fc
  .modal-backdrop{position:fixed!important;inset:0!important;z-index:1000!important}
 }
 
-/* V0.10.0: Keep the entire lesson editing toolbar reachable while the app shell scrolls. */
+/* V0.10.3: Keep the entire lesson editing toolbar reachable while the app shell scrolls. */
 .lesson-reading-card{overflow:visible!important;position:relative}
 .lesson-sticky-tools{position:sticky;top:0;z-index:12;background:var(--panel);padding:12px 10px 2px;margin:-12px -10px 12px;border-radius:12px;box-shadow:0 6px 12px rgba(15,35,37,.09)}
 .lesson-sticky-tools .lesson-format-toolbar{margin-bottom:6px}
@@ -259,10 +265,10 @@ html[data-theme="dark"] .lesson-body button.chunk-mark sup.chunk-star{color:#8fc
 .lesson-sticky-tools .lesson-format-controls label{flex-shrink:0}
 @media(max-width:850px){.lesson-sticky-tools{top:0;z-index:12;padding:9px 8px 2px;margin:-9px -8px 12px}.lesson-sticky-tools .lesson-format-toolbar{padding:9px}.lesson-sticky-tools .lesson-format-controls{gap:5px}}
 html[data-theme="dark"] .lesson-sticky-tools{background:var(--panel);box-shadow:0 6px 15px rgba(0,0,0,.3)}
-/* V0.10.0: prevent a tall editing toolbar from occupying the whole split-screen viewport. */
+/* V0.10.3: prevent a tall editing toolbar from occupying the whole split-screen viewport. */
 @media(max-width:850px){.lesson-sticky-tools{max-height:min(48dvh,260px);overflow-y:auto;overscroll-behavior:contain;-webkit-overflow-scrolling:touch}.lesson-sticky-tools .lesson-format-controls{align-items:center}}
 </style></head><body>
-<div class="app"><aside class="sidebar"><img class="brand-logo logo-light" src="./nova-speak-logo.png" alt="Nova Speak"><img class="brand-logo logo-dark" src="./nova-speak-logo-dark.png?v=069" alt="Nova Speak"><div class="sub">Your everyday expression library</div><nav id="sideNav"></nav><div class="sidefoot">V0.10.0 · 本机存储 · 可备份</div></aside><div class="main"><div class="brand-mobile"><img class="brand-mobile-full-logo logo-light" src="./nova-speak-logo.png" alt="Nova Speak"><img class="brand-mobile-full-logo logo-dark" src="./nova-speak-logo-dark.png?v=069" alt="Nova Speak"></div><div id="content"></div></div></div><nav class="bottom" id="bottomNav"></nav><div id="modalRoot"></div><div id="toast"></div>
+<div class="app"><aside class="sidebar"><img class="brand-logo logo-light" src="./nova-speak-logo.png" alt="Nova Speak"><img class="brand-logo logo-dark" src="./nova-speak-logo-dark.png?v=069" alt="Nova Speak"><div class="sub">Your everyday expression library</div><nav id="sideNav"></nav><div class="sidefoot">V0.10.3 · 本机存储 · 可备份</div></aside><div class="main"><div class="brand-mobile"><img class="brand-mobile-full-logo logo-light" src="./nova-speak-logo.png" alt="Nova Speak"><img class="brand-mobile-full-logo logo-dark" src="./nova-speak-logo-dark.png?v=069" alt="Nova Speak"></div><div id="content"></div></div></div><nav class="bottom" id="bottomNav"></nav><div id="modalRoot"></div><div id="toast"></div>
 <script>
 (()=>{'use strict';
 const DBKEY='nova_speak_v01';const TYPES=['句子','短语','固定搭配','单词'];const DEFAULT_SCENES=[{id:'sc-chat',name:'日常聊天',emoji:'',note:''},{id:'sc-food',name:'美食餐饮',emoji:'',note:''},{id:'sc-tech',name:'科技数码',emoji:'',note:''},{id:'sc-work',name:'学习工作',emoji:'',note:''}];
@@ -312,8 +318,8 @@ function renderStudy(){const n=db.items.filter(isNew).length,r=db.items.filter(r
 function sceneNotes(s){return Array.isArray(s.notes)?s.notes:[]}
 function sceneNotesHTML(s){const notes=sceneNotes(s);return `<div class="scene-notes-list">${notes.length?notes.map(n=>`<div class="item scene-note-item"><main><div class="en" style="font-size:15px">${escapeHTML(n.title||'未命名笔记')}</div><div class="note" style="white-space:pre-wrap;margin-top:8px">${escapeHTML(n.content||'')}</div><div class="meta">${escapeHTML((n.updatedAt||n.createdAt||'').slice(0,10))}</div></main><div class="act"><button type="button" data-action="editSceneNote" data-id="${escapeHTML(s.id)}" data-note-id="${escapeHTML(n.id)}">编辑</button><button type="button" class="danger" data-action="deleteSceneNote" data-id="${escapeHTML(s.id)}" data-note-id="${escapeHTML(n.id)}">删除</button></div></div>`).join(''):'<div class="mini" style="padding:10px 0">还没有笔记，点击「＋ 新增笔记」开始记录。</div>'}</div>`}
 function renderNotes(){return header('SCENE NOTES','场景笔记本','每个生活场景可以保存多条独立笔记，每条都能单独编辑、删除。',`<button class="primary" data-action="newScene">＋ 新场景</button>`)+db.scenes.map(s=>`<div class="card" style="margin-bottom:16px"><div class="row" style="justify-content:space-between;align-items:center"><b>${sceneIcon(s)} ${escapeHTML(s.name)} <span class="mini">(${sceneNotes(s).length} 条)</span></b><div class="btnline"><button data-action="editScene" data-id="${escapeHTML(s.id)}">场景设置</button><button class="primary" data-action="newSceneNote" data-id="${escapeHTML(s.id)}">＋ 新增笔记</button></div></div>${sceneNotesHTML(s)}</div>`).join('')}
-function renderSettings(){return header('DATA & BACKUP','数据与备份','导出完整备份（含标签及主动输出自评记录），换设备或清除浏览器数据后也可以恢复。')+`<div class="split"><div class="card"><h2>完整备份</h2><p class="note">包含全部场景、表达、笔记、学习与复习进度，保存为 JSON 文件。</p><button class="primary" data-action="backup">导出完整备份</button></div><div class="card"><h2>恢复备份</h2><p class="note">从先前导出的 JSON 文件恢复，按唯一 ID 合并，不重复添加相同记录。</p><button data-action="restore">选择文件并合并恢复</button></div></div><div class="sectionhead"><h2>导入和管理</h2></div><div class="card"><p class="note">口语课整理好的句子可以粘贴 TSV/CSV，也可以导入 JSON。推荐按“场景、类型、英文、中文、笔记”五列整理。</p><div class="btnline"><button data-action="showImport">导入口语素材</button><button data-action="exportCSV">导出 TSV</button></div></div><div class="sectionhead"><h2>设备说明</h2></div><div class="notice warn">当前 V0.10.0 是离线优先的单设备试用版：数据保存在当前浏览器，不会自动上传云端，也不会自动跨设备同步。请经常导出备份。浏览器隐私模式或清除网站数据可能导致记录丢失。</div><p class="note">版本 V0.10.0 · 不需要账号 · 可通过浏览器朗读英文（依赖设备语音服务）</p>`}
-// V0.10.0: keep the modal at its stable layout-viewport origin.
+function renderSettings(){return header('DATA & BACKUP','数据与备份','导出完整备份（含标签及主动输出自评记录），换设备或清除浏览器数据后也可以恢复。')+`<div class="split"><div class="card"><h2>完整备份</h2><p class="note">包含全部场景、表达、笔记、学习与复习进度，保存为 JSON 文件。</p><button class="primary" data-action="backup">导出完整备份</button></div><div class="card"><h2>恢复备份</h2><p class="note">从先前导出的 JSON 文件恢复，按唯一 ID 合并，不重复添加相同记录。</p><button data-action="restore">选择文件并合并恢复</button></div></div><div class="sectionhead"><h2>导入和管理</h2></div><div class="card"><p class="note">口语课整理好的句子可以粘贴 TSV/CSV，也可以导入 JSON。推荐按“场景、类型、英文、中文、笔记”五列整理。</p><div class="btnline"><button data-action="showImport">导入口语素材</button><button data-action="exportCSV">导出 TSV</button></div></div><div class="sectionhead"><h2>设备说明</h2></div><div class="notice warn">当前 V0.10.3 是离线优先的单设备试用版：数据保存在当前浏览器，不会自动上传云端，也不会自动跨设备同步。请经常导出备份。浏览器隐私模式或清除网站数据可能导致记录丢失。</div><p class="note">版本 V0.10.3 · 不需要账号 · 可通过浏览器朗读英文（依赖设备语音服务）</p>`}
+// V0.10.3: keep the modal at its stable layout-viewport origin.
 // Moving the fixed modal root with visualViewport offsets can displace the
 // native iPadOS composition/candidate window away from the focused textarea.
 function syncEditorViewport(){
@@ -407,6 +413,11 @@ function mergeBackup(v){
  db.lessons=Array.isArray(db.lessons)?db.lessons:[];const lessonIds=new Set(db.lessons.map(x=>x.id));let ln=0,cn=0;
  for(const lesson of incomingLessons){if(!lesson||!lesson.id||!lesson.title||typeof lesson.text!=='string')continue;
  const existing=db.lessons.find(x=>x.id===lesson.id);
+ if(existing&&existing.text!==lesson.text){
+  // Never silently discard a backup lesson whose ID is shared with an edited local copy.
+  const mappedScene=sceneMap.get(lesson.sceneId)||db.scenes.find(x=>x.id===lesson.sceneId)?.id||existing.sceneId;
+  db.lessons.push({...lesson,id:newId(),sceneId:mappedScene,title:lesson.title+'（备份副本）',chunks:Array.isArray(lesson.chunks)?lesson.chunks.map(c=>({...c,id:newId()})):[],pronMarks:Array.isArray(lesson.pronMarks)?lesson.pronMarks.map(m=>({...m,id:newId()})):[],formats:Array.isArray(lesson.formats)?lesson.formats.map(f=>({...f})):[]});ln++;continue;
+ }
  if(existing){if(existing.text===lesson.text){
   if(!existing.unit&&lesson.unit)existing.unit=lesson.unit;
   const oldIds=new Set((existing.chunks||[]).map(c=>c.id));
@@ -508,7 +519,10 @@ function lessonTextHTML(lesson){
   const styles=[];if(bold)styles.push('font-weight:700');if(italic)styles.push('font-style:italic');if(underline)styles.push('text-decoration:underline');if(size&&/^(1[2-9]|2[0-9]|3[0-6])$/.test(String(size)))styles.push('font-size:'+size+'px');if(color&&/^#[0-9a-fA-F]{6}$/.test(color))styles.push('color:'+color);
   const pron=pronMarks.filter(m=>m.kind!=='link'&&m.start<=start&&m.end>=end);
   const raw=escapeHTML(text.slice(start,end));
-  const marked=pron.length?'<span class="pron-stack" data-pron-ids="'+escapeHTML(pron.map(m=>m.id).join(','))+'" title="点击查看叠加的发音标注"><span class="pron-stack-text">'+raw+'</span><span class="pron-stack-labels">'+pron.map(m=>'<span class="pron-mini pron-'+escapeHTML(m.kind)+'" data-pron-id="'+escapeHTML(m.id)+'" title="'+escapeHTML(m.note||'查看发音笔记')+'" data-pron-symbol="'+escapeHTML(({drop:'∅',flap:'ɾ',weak:'ə',unreleased:'˺'})[m.kind]||'•')+'"></span>').join('')+'</span></span>':raw;
+  // Keep actual lesson text intact for selection-offset mapping; draw slash as CSS only.
+  const hasDrop=pron.some(m=>m.kind==='drop');
+  const displayRaw=hasDrop?Array.from(text.slice(start,end)).map(ch=>'<span class="pron-drop-letter'+(/\s/.test(ch)?' pron-drop-space':'')+'">'+escapeHTML(ch)+'</span>').join(''):raw;
+  const marked=pron.length?'<span class="pron-stack" data-pron-ids="'+escapeHTML(pron.map(m=>m.id).join(','))+'" title="点击查看叠加的发音标注"><span class="pron-stack-text">'+displayRaw+'</span><span class="pron-stack-labels">'+pron.filter(m=>m.kind!=='drop').map(m=>'<span class="pron-mini pron-'+escapeHTML(m.kind)+'" data-pron-id="'+escapeHTML(m.id)+'" title="'+escapeHTML(m.note||'查看发音笔记')+'" data-pron-symbol="'+escapeHTML(({flap:'ɾ',weak:'ə',unreleased:'˺'})[m.kind]||'•')+'"></span>').join('')+'</span></span>':raw;
   const fragment=styles.length?'<span style="'+styles.join(';')+'">'+marked+'</span>':marked;
   const chunk=chunks.find(c=>c.start<=start&&c.end>=end);
   if(openChunk!==chunk){if(openChunk)out+=(openChunk.important?'<sup class="chunk-star">*</sup>':'')+'</button>';if(chunk)out+=`<button type="button" class="chunk-mark" data-action="showChunk" data-id="${escapeHTML(chunk.id)}" title="查看语块笔记">`;openChunk=chunk||null}out+=`<span data-lesson-start="${start}" data-lesson-end="${end}">${fragment}</span>`;
@@ -710,7 +724,7 @@ document.addEventListener('pointerdown',e=>{const handle=e.target.closest('.less
 document.addEventListener('pointermove',e=>{if(!lessonDrag||e.pointerId!==lessonDrag.pointerId)return;const hit=document.elementFromPoint(e.clientX,e.clientY)?.closest('.lesson-sort-item');document.querySelectorAll('.lesson-sort-item.drag-target').forEach(el=>el.classList.remove('drag-target'));if(hit&&hit.dataset.lessonId!==lessonDrag.id){hit.classList.add('drag-target');lessonDrag.targetId=hit.dataset.lessonId}else lessonDrag.targetId=null;e.preventDefault()},{passive:false});
 document.addEventListener('pointerup',e=>{if(!lessonDrag||e.pointerId!==lessonDrag.pointerId)return;const {id,targetId}=lessonDrag;lessonDrag=null;document.querySelectorAll('.lesson-sort-item.drag-target,.lesson-sort-item.dragging-lesson').forEach(el=>el.classList.remove('drag-target','dragging-lesson'));if(targetId&&lessonReorderMode&&view==='scene'&&filterType==='课文')moveLesson(id,targetId)});
 document.addEventListener('pointercancel',()=>{lessonDrag=null;document.querySelectorAll('.lesson-sort-item.drag-target,.lesson-sort-item.dragging-lesson').forEach(el=>el.classList.remove('drag-target','dragging-lesson'))});
-document.addEventListener('click',e=>{const stack=e.target.closest('.pron-stack[data-pron-ids]');if(stack&&!e.target.closest('.pron-mini')){const sel=window.getSelection();if(sel&&!sel.isCollapsed)return;const ids=stack.dataset.pronIds.split(',');if(ids.length===1){e.preventDefault();e.stopPropagation();pronMarkModal(ids[0]);return;}e.preventDefault();e.stopPropagation();modal('<h2>选择要编辑的发音现象</h2><div class="pron-choice-list">'+ids.map(id=>{const lesson=db.lessons.find(x=>x.id===lessonPageId);const m=(lesson?.pronMarks||[]).find(x=>x.id===id);return m?'<button type="button" data-pron-choice="'+escapeHTML(id)+'">'+escapeHTML(({link:'连读',drop:'省音',unreleased:'不完全爆破',flap:'Flap T',weak:'弱读'})[m.kind]||m.kind)+' · '+escapeHTML(m.note||'无备注')+'</button>':''}).join('')+'</div><div class="actions"><button data-close>取消</button></div>');document.querySelectorAll('[data-pron-choice]').forEach(b=>b.onclick=()=>pronMarkModal(b.dataset.pronChoice));return;}const mark=e.target.closest('.pron-mini[data-pron-id],.pron-mark[data-pron-id],.pron-join-anchor[data-pron-id]');if(mark){const sel=window.getSelection();if(sel&&!sel.isCollapsed)return;e.preventDefault();e.stopPropagation();pronMarkModal(mark.dataset.pronId);}},true);
+document.addEventListener('click',e=>{const stack=e.target.closest('.pron-stack[data-pron-ids]');if(stack&&!e.target.closest('.pron-mini')){const sel=window.getSelection();if(sel&&!sel.isCollapsed)return;const ids=stack.dataset.pronIds.split(',');const parentChunk=stack.closest('.chunk-mark[data-id]');if(parentChunk){e.preventDefault();e.stopPropagation();const chunkId=parentChunk.dataset.id;const lesson=db.lessons.find(x=>x.id===lessonPageId);modal('<h2>选择要查看的笔记</h2><div class="pron-choice-list"><button type="button" id="openStackChunk">查看语块笔记</button>'+ids.map(id=>{const m=(lesson?.pronMarks||[]).find(x=>x.id===id);return m?'<button type="button" data-pron-choice="'+escapeHTML(id)+'">'+escapeHTML(({link:'连读',drop:'省音',unreleased:'不完全爆破',flap:'Flap T',weak:'弱读'})[m.kind]||m.kind)+' · '+escapeHTML(m.note||'无备注')+'</button>':''}).join('')+'</div><div class="actions"><button data-close>取消</button></div>');document.getElementById('openStackChunk').onclick=()=>showChunkNote(chunkId);document.querySelectorAll('[data-pron-choice]').forEach(b=>b.onclick=()=>pronMarkModal(b.dataset.pronChoice));return;}if(ids.length===1){e.preventDefault();e.stopPropagation();pronMarkModal(ids[0]);return;}e.preventDefault();e.stopPropagation();modal('<h2>选择要编辑的发音现象</h2><div class="pron-choice-list">'+ids.map(id=>{const lesson=db.lessons.find(x=>x.id===lessonPageId);const m=(lesson?.pronMarks||[]).find(x=>x.id===id);return m?'<button type="button" data-pron-choice="'+escapeHTML(id)+'">'+escapeHTML(({link:'连读',drop:'省音',unreleased:'不完全爆破',flap:'Flap T',weak:'弱读'})[m.kind]||m.kind)+' · '+escapeHTML(m.note||'无备注')+'</button>':''}).join('')+'</div><div class="actions"><button data-close>取消</button></div>');document.querySelectorAll('[data-pron-choice]').forEach(b=>b.onclick=()=>pronMarkModal(b.dataset.pronChoice));return;}const mark=e.target.closest('.pron-mini[data-pron-id],.pron-mark[data-pron-id],.pron-join-anchor[data-pron-id]');if(mark){const sel=window.getSelection();if(sel&&!sel.isCollapsed)return;e.preventDefault();e.stopPropagation();pronMarkModal(mark.dataset.pronId);}},true);
 document.addEventListener('click',e=>{let b=e.target.closest('[data-nav]');if(b){if(view==='session'&&sessionSummary.length&&!confirm('离开练习？已完成的进度会保留。'))return;setView(b.dataset.nav);return}b=e.target.closest('[data-close]');if(b){close();return}b=e.target.closest('[data-action]');if(!b)return;const a=b.dataset.action,id=b.dataset.id;({newItem:()=>itemModal(),editItem:()=>itemModal(id),newScene:()=>sceneModal(),editScene:()=>sceneModal(id),newSceneNote:()=>sceneNoteModal(id),editSceneNote:()=>sceneNoteModal(id,b.dataset.noteId),deleteSceneNote:()=>deleteSceneNote(id,b.dataset.noteId),openScene:()=>{exitLessonReorder();scenePageId=id;lessonPageId='';history.pushState({novaScene:id},'',location.pathname+location.search+'#scene-'+encodeURIComponent(id));view='scene';filterScene='';filterType='句子';search='';render();resetMainScroll()},backHome:()=>{exitLessonReorder();if(location.hash.startsWith('#scene-')&&history.state?.novaScene)history.back();else setView('home')},addToScene:()=>itemModal(),
 newLesson:()=>lessonModal(),editLesson:()=>{if(lessonReorderMode)return;const l=db.lessons.find(x=>x.id===id);if(l){scenePageId=l.sceneId;lessonModal(id)}},
 openLesson:()=>{if(!lessonReorderMode)openLesson(id)},backLesson:()=>{if(location.hash.startsWith('#lesson-')&&history.state?.novaLesson)history.back();else{const l=db.lessons.find(x=>x.id===lessonPageId);scenePageId=l?.sceneId||scenePageId;lessonPageId='';view='scene';filterType='课文';render();resetMainScroll()}},
@@ -737,7 +751,7 @@ restoreRouteFromURL();render();
 /* Nova Speak update manager: compare published manifest with verified HTML before offering update. */
 (function(){
  'use strict';
- const CURRENT_VERSION='0.10.0', CHECK_INTERVAL=15*60*1000;
+ const CURRENT_VERSION='0.10.1', CHECK_INTERVAL=15*60*1000;
  let checking=false,lastCheck=0,showing=false;
  const versionRE=/^\d+\.\d+\.\d+$/;
  function compare(a,b){const x=a.split('.').map(Number),y=b.split('.').map(Number);for(let i=0;i<3;i++){if(x[i]!==y[i])return x[i]>y[i]?1:-1;}return 0;}
@@ -828,4 +842,4 @@ restoreRouteFromURL();render();
 
 </body></html>
 
-<!-- V0.10.0: annotation selection and IPA caret safety fixes -->
+<!-- V0.10.3: annotation selection and IPA caret safety fixes -->
