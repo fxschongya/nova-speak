@@ -2,7 +2,7 @@
 <html lang="zh-CN">
 <head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="theme-color" content="#f6f5f1">
-<title>Nova Speak V0.9.3 · 场景学习</title>
+<title>Nova Speak V0.9.5 · 场景学习</title>
 <link rel="icon" type="image/png" href="./favicon.png">
 <link rel="apple-touch-icon" href="./apple-touch-icon.png">
 <link rel="manifest" href="./manifest.webmanifest?v=057">
@@ -51,7 +51,7 @@ html[data-theme="dark"] .chunk-mark{color:#8fc3ff!important}
 
 .lesson-sortbar{display:flex;align-items:center;flex-wrap:wrap;gap:10px;margin:10px 0 14px}.lesson-sortbar label{display:flex;align-items:center;gap:8px;flex-wrap:wrap}.lesson-sortbar select{max-width:100%;min-width:180px}.lesson-sort-item{position:relative}.lesson-drag-handle{align-self:center;flex:0 0 38px;min-height:50px;display:flex;align-items:center;justify-content:center;font-size:26px;font-weight:700;cursor:grab;touch-action:none;user-select:none;-webkit-user-select:none;color:var(--accent,#328d83);border:1px solid var(--line);border-radius:10px;margin-right:8px}.lesson-sort-item.dragging-lesson{opacity:.65}.lesson-sort-item.drag-target{outline:2px dashed #379edb;outline-offset:-2px}.lesson-sort-item .act{flex-wrap:wrap}@media(max-width:600px){.lesson-sort-item{gap:6px}.lesson-sort-item .act{gap:4px}.lesson-sort-item .act button{padding:7px 9px}}
 
-/* V0.9.3: expression card interaction and persistence hardening */
+/* V0.9.5: expression card interaction and persistence hardening */
 .expression-swipe{position:relative;overflow:hidden;border-radius:15px;margin:10px 0;touch-action:pan-y}
 .expression-swipe .expression-item{position:relative;z-index:1;margin:0;transition:transform .18s ease;will-change:transform;background:var(--panel)}
 .expression-swipe.swipe-open .expression-item{transform:translateX(-84px)}
@@ -67,7 +67,7 @@ html[data-theme="dark"] .expression-swipe .expression-item{background:var(--pane
 html[data-theme="dark"] .expression-note-panel{background:#29413f;color:#e8f0ef}
 @media(hover:hover){.expression-swipe:not(.swipe-open) .expression-item:hover{border-color:#a9ceca}}
 
-/* V0.9.3: mobile scroll shell - keep the bottom navigation outside the scrollable region. */
+/* V0.9.5: mobile scroll shell - keep the bottom navigation outside the scrollable region. */
 @media (max-width:850px){
   html,body{height:100%;height:100svh;min-height:0;overflow:hidden!important;overscroll-behavior:none}
   body{position:relative;width:100%;}
@@ -79,7 +79,7 @@ html[data-theme="dark"] .expression-note-panel{background:#29413f;color:#e8f0ef}
   .main{padding-bottom:calc(120px + env(safe-area-inset-bottom))!important;}
 }
 
-/* V0.9.3: keyboard-safe editor: one scroll area, visible focus and footer. */
+/* V0.9.5: keyboard-safe editor: one scroll area, visible focus and footer. */
 #modalRoot .modal-backdrop{box-sizing:border-box;overflow:hidden;min-height:0;justify-content:center}
 #modalRoot .modal{display:flex;flex-direction:column;min-height:0;max-height:calc(var(--nova-visible-height, 100dvh) - 24px)!important;overflow-y:auto!important;overscroll-behavior:contain;scroll-padding-top:72px;scroll-padding-bottom:120px}
 #modalRoot .modal .field{scroll-margin-top:65px;scroll-margin-bottom:110px}
@@ -88,7 +88,7 @@ html[data-theme="dark"] .expression-note-panel{background:#29413f;color:#e8f0ef}
 #modalRoot.nova-keyboard-open .modal{max-height:calc(var(--nova-visible-height, 100dvh) - 16px)!important}
 @media(max-width:850px){#modalRoot .modal-backdrop{padding:12px!important}#modalRoot.nova-keyboard-open .modal-backdrop{padding:8px 12px!important}}
 
-/* V0.9.3: iPad split-view keyboard and editor dialog stability. */
+/* V0.9.5: iPad split-view keyboard and editor dialog stability. */
 #modalRoot:empty{pointer-events:none}
 #modalRoot:not(:empty){position:fixed;inset:0;z-index:210;pointer-events:none}
 #modalRoot .modal-backdrop{position:absolute;inset:0;pointer-events:auto;overflow:hidden;align-items:center}
@@ -107,12 +107,29 @@ html[data-theme="dark"] input[type="color"]{color-scheme:dark}
  html[data-theme="dark"] .modal .actions{background:var(--panel)}
 }
 
-/* V0.9.3: stable modal coordinates for iPadOS native composition UI. */
+/* V0.9.5: stable modal coordinates for iPadOS native composition UI. */
 #modalRoot:not(:empty){position:fixed!important;inset:0!important;width:auto!important;height:auto!important;transform:none!important;}
 #modalRoot .modal-backdrop{position:absolute!important;inset:0!important;}
 #modalRoot .modal{max-height:calc(100svh - 28px)!important;}
 #modalRoot.nova-keyboard-open .modal{max-height:calc(100svh - 16px)!important;}
 
+
+/* V0.9.5 IPA keyboard and visible connected-speech markings */
+.ipa-launch{margin:7px 0 0;padding:6px 10px;font-size:13px;border:1px solid var(--line);border-radius:9px}
+.ipa-keyboard{margin:8px 0 12px;padding:10px;border:1px solid var(--line);border-radius:12px;background:var(--panel)}
+.ipa-keyboard[hidden]{display:none!important}
+.ipa-keys{display:flex;flex-wrap:wrap;gap:5px;margin:7px 0}
+.ipa-keys button{min-width:36px;min-height:36px;padding:6px 8px;font-size:17px;font-family:system-ui,sans-serif}
+.ipa-keyboard .mini{font-size:12px}
+.pron-mark{color:#d47734;cursor:pointer;text-decoration:none;border-bottom:2px solid #d47734;position:relative;box-decoration-break:clone;-webkit-box-decoration-break:clone}
+.pron-link{border-bottom:2px solid #d47734;border-radius:0 0 55% 55%;padding-bottom:2px}
+.pron-drop{text-decoration:line-through;text-decoration-color:#e67b42;text-decoration-thickness:2px;border-bottom:0}
+.pron-flap{border-bottom:2px dotted #d47734}
+.pron-weak{border-bottom:2px dashed #d47734}
+.pron-unreleased{border-bottom:3px double #d47734}
+.pron-mark:after{content:attr(data-pron-label);font-size:10px;vertical-align:super;color:#d47734;margin-left:2px}
+.pron-toolbar{display:flex;gap:6px;flex-wrap:wrap;margin-top:9px}
+.pron-toolbar button{font-size:12px;padding:7px 9px}
 </style>
 <style>
 .scene-type-tabs{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:8px;margin:18px 0 8px}.scene-type-tabs button{background:white;border:1px solid var(--line);border-radius:12px;padding:13px 5px;white-space:nowrap;font-size:13px}.scene-type-tabs button.selected{background:var(--accent);color:white;border-color:var(--accent)}.scene-type-tabs button.selected .mini{color:#dcecea}.lesson-body{white-space:pre-wrap;overflow-wrap:anywhere;font-family:Georgia,'Times New Roman',serif;font-size:19px;line-height:2.2;user-select:text;-webkit-user-select:text;padding:12px 4px}.chunk-quote{font-size:20px;line-height:1.7;background:#eef5f1;padding:13px;border-radius:12px;white-space:pre-wrap;overflow-wrap:anywhere}.lesson-note{white-space:pre-wrap;line-height:1.8;color:#526368}@media(max-width:600px){.scene-type-tabs{grid-template-columns:repeat(3,minmax(0,1fr))}.scene-type-tabs button{font-size:12px}.lesson-body{font-size:17px}}
@@ -208,7 +225,7 @@ html[data-theme="dark"] .lesson-body button.chunk-mark{color:#8fc3ff!important}
 .lesson-body button.chunk-mark sup.chunk-star{color:#1666d1!important;background:transparent!important}
 html[data-theme="dark"] .lesson-body button.chunk-mark sup.chunk-star{color:#8fc3ff!important}
 
-/* V0.9.3: scroll shell is the only content scroller on compact screens. */
+/* V0.9.5: scroll shell is the only content scroller on compact screens. */
 @media(max-width:850px){
  html,body{height:100%;height:100dvh;overflow:hidden!important}
  .app{height:100%;height:100dvh;min-height:0!important;overflow-y:auto!important;overflow-x:hidden!important;overscroll-behavior-y:contain}
@@ -216,7 +233,7 @@ html[data-theme="dark"] .lesson-body button.chunk-mark sup.chunk-star{color:#8fc
  .modal-backdrop{position:fixed!important;inset:0!important;z-index:1000!important}
 }
 
-/* V0.9.3: Keep the entire lesson editing toolbar reachable while the app shell scrolls. */
+/* V0.9.5: Keep the entire lesson editing toolbar reachable while the app shell scrolls. */
 .lesson-reading-card{overflow:visible!important;position:relative}
 .lesson-sticky-tools{position:sticky;top:0;z-index:12;background:var(--panel);padding:12px 10px 2px;margin:-12px -10px 12px;border-radius:12px;box-shadow:0 6px 12px rgba(15,35,37,.09)}
 .lesson-sticky-tools .lesson-format-toolbar{margin-bottom:6px}
@@ -225,10 +242,10 @@ html[data-theme="dark"] .lesson-body button.chunk-mark sup.chunk-star{color:#8fc
 .lesson-sticky-tools .lesson-format-controls label{flex-shrink:0}
 @media(max-width:850px){.lesson-sticky-tools{top:0;z-index:12;padding:9px 8px 2px;margin:-9px -8px 12px}.lesson-sticky-tools .lesson-format-toolbar{padding:9px}.lesson-sticky-tools .lesson-format-controls{gap:5px}}
 html[data-theme="dark"] .lesson-sticky-tools{background:var(--panel);box-shadow:0 6px 15px rgba(0,0,0,.3)}
-/* V0.9.3: prevent a tall editing toolbar from occupying the whole split-screen viewport. */
+/* V0.9.5: prevent a tall editing toolbar from occupying the whole split-screen viewport. */
 @media(max-width:850px){.lesson-sticky-tools{max-height:min(48dvh,260px);overflow-y:auto;overscroll-behavior:contain;-webkit-overflow-scrolling:touch}.lesson-sticky-tools .lesson-format-controls{align-items:center}}
 </style></head><body>
-<div class="app"><aside class="sidebar"><img class="brand-logo logo-light" src="./nova-speak-logo.png" alt="Nova Speak"><img class="brand-logo logo-dark" src="./nova-speak-logo-dark.png?v=069" alt="Nova Speak"><div class="sub">Your everyday expression library</div><nav id="sideNav"></nav><div class="sidefoot">V0.9.3 · 本机存储 · 可备份</div></aside><div class="main"><div class="brand-mobile"><img class="brand-mobile-full-logo logo-light" src="./nova-speak-logo.png" alt="Nova Speak"><img class="brand-mobile-full-logo logo-dark" src="./nova-speak-logo-dark.png?v=069" alt="Nova Speak"></div><div id="content"></div></div></div><nav class="bottom" id="bottomNav"></nav><div id="modalRoot"></div><div id="toast"></div>
+<div class="app"><aside class="sidebar"><img class="brand-logo logo-light" src="./nova-speak-logo.png" alt="Nova Speak"><img class="brand-logo logo-dark" src="./nova-speak-logo-dark.png?v=069" alt="Nova Speak"><div class="sub">Your everyday expression library</div><nav id="sideNav"></nav><div class="sidefoot">V0.9.5 · 本机存储 · 可备份</div></aside><div class="main"><div class="brand-mobile"><img class="brand-mobile-full-logo logo-light" src="./nova-speak-logo.png" alt="Nova Speak"><img class="brand-mobile-full-logo logo-dark" src="./nova-speak-logo-dark.png?v=069" alt="Nova Speak"></div><div id="content"></div></div></div><nav class="bottom" id="bottomNav"></nav><div id="modalRoot"></div><div id="toast"></div>
 <script>
 (()=>{'use strict';
 const DBKEY='nova_speak_v01';const TYPES=['句子','短语','固定搭配','单词'];const DEFAULT_SCENES=[{id:'sc-chat',name:'日常聊天',emoji:'',note:''},{id:'sc-food',name:'美食餐饮',emoji:'',note:''},{id:'sc-tech',name:'科技数码',emoji:'',note:''},{id:'sc-work',name:'学习工作',emoji:'',note:''}];
@@ -278,8 +295,8 @@ function renderStudy(){const n=db.items.filter(isNew).length,r=db.items.filter(r
 function sceneNotes(s){return Array.isArray(s.notes)?s.notes:[]}
 function sceneNotesHTML(s){const notes=sceneNotes(s);return `<div class="scene-notes-list">${notes.length?notes.map(n=>`<div class="item scene-note-item"><main><div class="en" style="font-size:15px">${escapeHTML(n.title||'未命名笔记')}</div><div class="note" style="white-space:pre-wrap;margin-top:8px">${escapeHTML(n.content||'')}</div><div class="meta">${escapeHTML((n.updatedAt||n.createdAt||'').slice(0,10))}</div></main><div class="act"><button type="button" data-action="editSceneNote" data-id="${escapeHTML(s.id)}" data-note-id="${escapeHTML(n.id)}">编辑</button><button type="button" class="danger" data-action="deleteSceneNote" data-id="${escapeHTML(s.id)}" data-note-id="${escapeHTML(n.id)}">删除</button></div></div>`).join(''):'<div class="mini" style="padding:10px 0">还没有笔记，点击「＋ 新增笔记」开始记录。</div>'}</div>`}
 function renderNotes(){return header('SCENE NOTES','场景笔记本','每个生活场景可以保存多条独立笔记，每条都能单独编辑、删除。',`<button class="primary" data-action="newScene">＋ 新场景</button>`)+db.scenes.map(s=>`<div class="card" style="margin-bottom:16px"><div class="row" style="justify-content:space-between;align-items:center"><b>${sceneIcon(s)} ${escapeHTML(s.name)} <span class="mini">(${sceneNotes(s).length} 条)</span></b><div class="btnline"><button data-action="editScene" data-id="${escapeHTML(s.id)}">场景设置</button><button class="primary" data-action="newSceneNote" data-id="${escapeHTML(s.id)}">＋ 新增笔记</button></div></div>${sceneNotesHTML(s)}</div>`).join('')}
-function renderSettings(){return header('DATA & BACKUP','数据与备份','导出完整备份（含标签及主动输出自评记录），换设备或清除浏览器数据后也可以恢复。')+`<div class="split"><div class="card"><h2>完整备份</h2><p class="note">包含全部场景、表达、笔记、学习与复习进度，保存为 JSON 文件。</p><button class="primary" data-action="backup">导出完整备份</button></div><div class="card"><h2>恢复备份</h2><p class="note">从先前导出的 JSON 文件恢复，按唯一 ID 合并，不重复添加相同记录。</p><button data-action="restore">选择文件并合并恢复</button></div></div><div class="sectionhead"><h2>导入和管理</h2></div><div class="card"><p class="note">口语课整理好的句子可以粘贴 TSV/CSV，也可以导入 JSON。推荐按“场景、类型、英文、中文、笔记”五列整理。</p><div class="btnline"><button data-action="showImport">导入口语素材</button><button data-action="exportCSV">导出 TSV</button></div></div><div class="sectionhead"><h2>设备说明</h2></div><div class="notice warn">当前 V0.9.3 是离线优先的单设备试用版：数据保存在当前浏览器，不会自动上传云端，也不会自动跨设备同步。请经常导出备份。浏览器隐私模式或清除网站数据可能导致记录丢失。</div><p class="note">版本 V0.9.3 · 不需要账号 · 可通过浏览器朗读英文（依赖设备语音服务）</p>`}
-// V0.9.3: keep the modal at its stable layout-viewport origin.
+function renderSettings(){return header('DATA & BACKUP','数据与备份','导出完整备份（含标签及主动输出自评记录），换设备或清除浏览器数据后也可以恢复。')+`<div class="split"><div class="card"><h2>完整备份</h2><p class="note">包含全部场景、表达、笔记、学习与复习进度，保存为 JSON 文件。</p><button class="primary" data-action="backup">导出完整备份</button></div><div class="card"><h2>恢复备份</h2><p class="note">从先前导出的 JSON 文件恢复，按唯一 ID 合并，不重复添加相同记录。</p><button data-action="restore">选择文件并合并恢复</button></div></div><div class="sectionhead"><h2>导入和管理</h2></div><div class="card"><p class="note">口语课整理好的句子可以粘贴 TSV/CSV，也可以导入 JSON。推荐按“场景、类型、英文、中文、笔记”五列整理。</p><div class="btnline"><button data-action="showImport">导入口语素材</button><button data-action="exportCSV">导出 TSV</button></div></div><div class="sectionhead"><h2>设备说明</h2></div><div class="notice warn">当前 V0.9.5 是离线优先的单设备试用版：数据保存在当前浏览器，不会自动上传云端，也不会自动跨设备同步。请经常导出备份。浏览器隐私模式或清除网站数据可能导致记录丢失。</div><p class="note">版本 V0.9.5 · 不需要账号 · 可通过浏览器朗读英文（依赖设备语音服务）</p>`}
+// V0.9.5: keep the modal at its stable layout-viewport origin.
 // Moving the fixed modal root with visualViewport offsets can displace the
 // native iPadOS composition/candidate window away from the focused textarea.
 function syncEditorViewport(){
@@ -311,7 +328,27 @@ document.getElementById('modalRoot').addEventListener('focusin',e=>{
  // Avoid immediate programmatic scrolling while the native IME anchors its popup.
 });
 document.getElementById('modalRoot').addEventListener('focusout',()=>{setTimeout(syncEditorViewport,100)});
-function modal(inner){hideLessonSelectionAction();const root=document.getElementById('modalRoot');root.classList.remove('nova-keyboard-open');root.innerHTML=`<div class="modal-backdrop"><div class="modal" role="dialog" aria-modal="true">${inner}</div></div>`;syncEditorViewport();document.querySelector('.modal-backdrop').addEventListener('click',e=>{if(e.target.classList.contains('modal-backdrop'))close()})}
+function modal(inner){hideLessonSelectionAction();const root=document.getElementById('modalRoot');root.classList.remove('nova-keyboard-open');root.innerHTML=`<div class="modal-backdrop"><div class="modal" role="dialog" aria-modal="true">${inner}</div></div>`;syncEditorViewport();attachIPAKeyboard();document.querySelector('.modal-backdrop').addEventListener('click',e=>{if(e.target.classList.contains('modal-backdrop'))close()})}
+
+const IPA_GROUPS=[['元音','iː ɪ e æ ɑː ɒ ɔː ʊ uː ʌ ɜː ə'],['双元音','eɪ aɪ ɔɪ aʊ əʊ oʊ ɪə eə ʊə'],['辅音','θ ð ʃ ʒ tʃ dʒ ŋ ɹ j ɾ ʔ'],['标记','ˈ ˌ ː ‿ / [ ] ( ) → ∅']];
+let ipaTarget=null;const ipaCarets=new WeakMap();
+function attachIPAKeyboard(){
+ const root=document.getElementById('modalRoot');
+ root.querySelectorAll('textarea').forEach((field,i)=>{
+  if(field.dataset.ipaReady)return;field.dataset.ipaReady='1';
+  const launch=document.createElement('button');launch.type='button';launch.className='ipa-launch';launch.textContent='⌨ IPA 音标';
+  const panel=document.createElement('div');panel.className='ipa-keyboard';panel.hidden=true;
+  panel.innerHTML='<div class="mini">点符号插入当前光标位置；可输入音标和连读符号。按键不会提交表单。</div>'+IPA_GROUPS.map(([name,keys])=>'<div class="mini">'+name+'</div><div class="ipa-keys">'+keys.split(' ').map(k=>'<button type="button" data-ipa="'+k+'">'+k+'</button>').join('')+'</div>').join('')+'<button type="button" data-ipa-close>收起音标键盘</button>';
+  field.insertAdjacentElement('afterend',launch);launch.insertAdjacentElement('afterend',panel);
+  const remember=()=>{ipaCarets.set(field,{start:field.selectionStart??field.value.length,end:field.selectionEnd??field.value.length})};
+  field.addEventListener('keyup',remember);field.addEventListener('mouseup',remember);field.addEventListener('select',remember);field.addEventListener('input',remember);
+  launch.addEventListener('pointerdown',e=>{remember();e.preventDefault()});
+  launch.addEventListener('click',()=>{const wasHidden=panel.hidden;root.querySelectorAll('.ipa-keyboard').forEach(x=>x.hidden=true);panel.hidden=!wasHidden;ipaTarget=field;field.focus({preventScroll:true});const pos=ipaCarets.get(field);if(pos)field.setSelectionRange(pos.start,pos.end)});
+  field.addEventListener('focus',()=>{ipaTarget=field});
+  panel.addEventListener('pointerdown',e=>{if(e.target.closest('[data-ipa]'))e.preventDefault()});
+  panel.addEventListener('click',e=>{const key=e.target.closest('[data-ipa]');if(e.target.closest('[data-ipa-close]')){panel.hidden=true;return}if(!key)return;const v=key.dataset.ipa;const pos=ipaCarets.get(field)||{start:field.selectionStart??field.value.length,end:field.selectionEnd??field.value.length};field.setRangeText(v,pos.start,pos.end,'end');ipaCarets.set(field,{start:field.selectionStart,end:field.selectionEnd});field.dispatchEvent(new Event('input',{bubbles:true}));field.focus({preventScroll:true})});
+ });
+}
 function close(){const root=document.getElementById('modalRoot');root.innerHTML='';root.removeAttribute('style');root.classList.remove('nova-keyboard-open')}
 function itemModal(id){const i=db.items.find(x=>x.id===id)||{id:'',sceneId:(view==='scene'?scenePageId:filterScene)||db.scenes[0]?.id,type:(view==='scene'&&TYPES.includes(filterType)?filterType:'句子'),en:'',zh:'',note:''};if(!db.scenes.length){toast('请先建立生活场景');sceneModal();return}modal(`<h2>${id?'编辑表达':'添加口语表达'}</h2><p>每条表达可同时拥有场景、类型和自己的课堂笔记。</p><form id="itemForm"><div class="split"><div class="field"><label>生活场景</label><select name="sceneId" required>${db.scenes.map(s=>`<option value="${escapeHTML(s.id)}" ${i.sceneId===s.id?'selected':''}>${escapeHTML(s.name)}</option>`).join('')}</select></div><div class="field"><label>表达类型</label><select name="type">${TYPES.map(t=>`<option ${i.type===t?'selected':''}>${t}</option>`).join('')}</select></div></div><div class="field"><label>英文表达 *</label><textarea required name="en" placeholder="e.g. That sounds like a plan.">${escapeHTML(i.en)}</textarea></div><div class="field"><label>中文意思</label><input name="zh" value="${escapeHTML(i.zh)}" placeholder="比如：听起来不错，就这么定了"></div><div class="field"><label>表达笔记 / 例句 / 老师提示</label><textarea name="note" placeholder="适用语境、用法、替换说法、易错点…">${escapeHTML(i.note)}</textarea></div><div class="field"><label>自定义标签（可多选）</label><div class="row">${db.tags.map(t=>`<label style="display:inline-flex;align-items:center;gap:5px;font-size:13px"><input type="checkbox" name="tagIds" value="${escapeHTML(t.id)}" ${(i.tagIds||[]).includes(t.id)?'checked':''} style="width:auto">#${escapeHTML(t.name)}</label>`).join('')||'<span class="mini">暂无标签，可在「我的收藏」中创建。</span>'}</div></div><div class="field"><label style="display:flex;align-items:center;gap:8px"><input type="checkbox" name="starred" ${i.starred?'checked':''} style="width:auto">♥ 标红：高频常用重点表达</label></div><div class="actions">${id?'<button type="button" class="danger" id="deleteItem">删除</button>':''}<button type="button" class="ghost" data-close>取消</button><button class="primary" type="submit">保存表达</button></div></form>`);document.getElementById('itemForm').onsubmit=e=>{e.preventDefault();const f=new FormData(e.target),en=String(f.get('en')||'').trim();if(!en)return;const d={sceneId:f.get('sceneId'),type:f.get('type'),en,zh:String(f.get('zh')||'').trim(),note:String(f.get('note')||'').trim(),tagIds:f.getAll('tagIds').map(String),starred:f.has('starred')};const before=JSON.parse(JSON.stringify(db.items));if(id)Object.assign(i,d);else db.items.push({...d,id:newId(),createdAt:new Date().toISOString(),lastStudied:null,nextReview:null,interval:0,streak:0});if(save()){close();render();toast('已保存表达')}else db.items=before};if(id)document.getElementById('deleteItem').onclick=()=>{if(confirm('确定删除这条表达及其学习记录吗？')){const before=db.items;db.items=before.filter(x=>x.id!==id);if(save()){close();render();toast('已删除')}else db.items=before}};}
 function sceneModal(id){const s=db.scenes.find(x=>x.id===id)||{name:'',emoji:'',note:'',notes:[]};modal(`<h2>${id?'编辑场景':'创建生活场景'}</h2><p>场景笔记现在是独立的多条记录，请使用「＋ 新增笔记」添加。</p><form id="sceneForm"><div class="split"><div class="field"><label>场景名称 *</label><input required name="name" value="${escapeHTML(s.name)}" placeholder="比如：旅行出行"></div><div class="field"><label>场景图标</label><select name="iconType">${[["","自动匹配"],["chat","对话"],["food","餐饮"],["tech","科技"],["study","学习"],["travel","旅行"],["shop","购物"],["sport","运动"],["folder","通用分类"]].map(([k,v])=>`<option value="${k}" ${s.iconType===k?"selected":""}>${v}</option>`).join("")}</select></div></div><div class="actions">${id?'<button type="button" class="danger" id="deleteScene">删除场景</button>':''}<button type="button" class="ghost" data-close>取消</button><button class="primary" type="submit">保存</button></div></form>`);document.getElementById('sceneForm').onsubmit=e=>{e.preventDefault();const f=new FormData(e.target),name=String(f.get('name')||'').trim();if(!name)return;const before=JSON.stringify(db.scenes);const val={name,iconType:String(f.get('iconType')||'')};if(id)Object.assign(s,val);else db.scenes.push({id:newId(),note:'',notes:[],...val});if(save()){close();render();toast('场景已保存')}else db.scenes=JSON.parse(before)};if(id)document.getElementById('deleteScene').onclick=()=>{const current=getScene(id);if(!current)return;const itemCount=db.items.filter(x=>x.sceneId===id).length,lessonCount=db.lessons.filter(x=>x.sceneId===id).length,noteCount=sceneNotes(current).length;const historyCount=(db.outputHistory||[]).reduce((n,log)=>n+(Array.isArray(log.results)?log.results.filter(r=>r.sceneId===id).length:0),0);const safeName=escapeHTML(current.name);modal(`<h2>确认删除生活场景</h2><p>你准备删除「<b>${safeName}</b>」。</p><div class="notice warn">此操作会同时删除该场景中的 <b>${itemCount}</b> 条表达（含收藏和复习记录）、<b>${lessonCount}</b> 篇课文（含语块与格式）、<b>${noteCount}</b> 条场景笔记，以及 <b>${historyCount}</b> 条关联主动输出历史。删除后无法撤销，请先导出完整备份。</div><form id="confirmSceneDeleteForm"><div class="field"><label>请输入场景名称「${safeName}」以确认删除</label><input id="confirmSceneDeleteName" autocomplete="off" required placeholder="输入完整场景名称"></div><div class="actions"><button type="button" data-close>取消，保留场景</button><button class="danger" type="submit" id="confirmSceneDeleteButton" disabled>永久删除场景</button></div></form>`);const nameInput=document.getElementById('confirmSceneDeleteName'),deleteButton=document.getElementById('confirmSceneDeleteButton');nameInput.addEventListener('input',()=>{deleteButton.disabled=nameInput.value!==current.name});document.getElementById('confirmSceneDeleteForm').onsubmit=e=>{e.preventDefault();if(nameInput.value!==current.name||!getScene(id))return;const previous={scenes:db.scenes,items:db.items,lessons:db.lessons,outputHistory:db.outputHistory};db.scenes=db.scenes.filter(x=>x.id!==id);db.items=db.items.filter(x=>x.sceneId!==id);db.lessons=db.lessons.filter(x=>x.sceneId!==id);db.outputHistory=(db.outputHistory||[]).map(log=>{if(!Array.isArray(log.results))return log;return {...log,results:log.results.filter(r=>r.sceneId!==id)}}).filter(log=>!Array.isArray(log.results)||log.results.length>0);if(!save()){Object.assign(db,previous);toast('删除失败，场景及其内容已保留');return}if(outputQueue.some(x=>x.sceneId===id)||outputResults.some(x=>x.sceneId===id)){clearOutputAudio();resetSpeechState();outputQueue=[];outputResults=[];outputIndex=0;outputRevealed=false;}if(scenePageId===id||(lessonPageId&&!db.lessons.some(x=>x.id===lessonPageId))){scenePageId='';lessonPageId='';view='home';filterScene='';filterType='句子';search='';history.replaceState(null,'',location.pathname+location.search)}if(outputScene===id)outputScene='';close();render();toast('场景及其内容已删除')}}}
@@ -407,44 +444,36 @@ function toggleOutputAnswer(){stopOutputRecording();stopSpeechRecognition();outp
 function outputNext(){if(!outputRevealed)return;const choice=document.activeElement?.dataset?.grade||'hard';const i=outputQueue[outputIndex];outputResults.push({id:i.id,grade:choice,en:i.en,zh:i.zh,sceneId:i.sceneId,transcript:speechText,at:new Date().toISOString()});clearOutputAudio();outputIndex++;outputRevealed=false;resetSpeechState();if(outputIndex>=outputQueue.length){db.outputHistory.push({id:newId(),date:new Date().toISOString(),results:outputResults.map(x=>({...x}))});save();outputQueue=[];toast('主动输出完成：已保存 '+outputResults.length+' 条练习记录，不影响间隔复习进度')}render()}
 
 function remapLessonMarks(oldText,newText,marks){
+ // Conservative mapping: never move a note onto a changed or ambiguous phrase.
  if(oldText===newText)return {marks:(marks||[]).map(m=>({...m})),lost:0};
  let prefix=0;while(prefix<Math.min(oldText.length,newText.length)&&oldText[prefix]===newText[prefix])prefix++;
  let suffix=0;while(suffix<Math.min(oldText.length-prefix,newText.length-prefix)&&oldText[oldText.length-1-suffix]===newText[newText.length-1-suffix])suffix++;
- const oldEnd=oldText.length-suffix,newEnd=newText.length-suffix,delta=newText.length-oldText.length;
- let lost=0;const mapped=[];
+ const oldChangeEnd=oldText.length-suffix,delta=newText.length-oldText.length;
+ const mapped=[];let lost=0;
  for(const m of marks||[]){
   if(!Number.isInteger(m.start)||!Number.isInteger(m.end)||m.start<0||m.end>oldText.length||m.end<=m.start){lost++;continue}
   if(m.end<=prefix){mapped.push({...m});continue}
-  if(m.start>=oldEnd){mapped.push({...m,start:m.start+delta,end:m.end+delta});continue}
-  const phrase=oldText.slice(m.start,m.end);
-  // Exact text with unique surrounding context wins; never silently choose a repeated phrase.
-  let matches=[],at=-1;while((at=newText.indexOf(phrase,at+1))!==-1){matches.push(at);if(matches.length>100)break}
-  if(matches.length){
-   const before=oldText.slice(Math.max(0,m.start-24),m.start),after=oldText.slice(m.end,m.end+24);
-   const scored=matches.map(pos=>{let score=0;for(let i=1;i<=before.length&&pos-i>=0;i++){if(before[before.length-i]!==newText[pos-i])break;score++}for(let i=0;i<after.length&&pos+phrase.length+i<newText.length;i++){if(after[i]!==newText[pos+phrase.length+i])break;score++}return{pos,score}}).sort((a,b)=>b.score-a.score);
-   if(scored.length===1||scored[0].score>scored[1].score){mapped.push({...m,start:scored[0].pos,end:scored[0].pos+phrase.length});continue}
-  }
-  // One localized replacement: keep a mark spanning the changed word, adjusting its bounds.
-  if(m.start<=prefix&&m.end>=oldEnd){const start=m.start,end=m.end+delta;if(end>start){mapped.push({...m,start,end});continue}}
-  // Partial overlap: anchor the unchanged boundary; do not attach notes to unrelated text.
-  if(m.start<prefix&&m.end>prefix&&m.end<=oldEnd){const end=Math.min(newText.length,Math.max(prefix+1,newEnd));if(end>m.start){mapped.push({...m,end});continue}}
-  if(m.start>=prefix&&m.start<oldEnd&&m.end>oldEnd){const start=Math.min(newEnd,m.end+delta-1);if(m.end+delta>start&&start>=0){mapped.push({...m,start,end:m.end+delta});continue}}
+  if(m.start>=oldChangeEnd){mapped.push({...m,start:m.start+delta,end:m.end+delta});continue}
+  // A mark intersects edited text. Requiring manual resolution is safer than guessing.
   lost++;
  }
  return {marks:mapped,lost};
 }
-function lessonModal(id){const lesson=db.lessons.find(x=>x.id===id)||{title:'',text:'',note:''};const scene=getScene(scenePageId);if(!scene)return toast('请先进入生活场景');modal(`<h2>${id?'编辑课文':'导入课文'}</h2><p>课文属于「${escapeHTML(scene.name)}」场景。可以粘贴整篇英文课文，保存后进入独立阅读页面选词组并做笔记。</p><form id="lessonForm"><div class="field"><label>课文标题 *</label><input name="title" required maxlength="180" value="${escapeHTML(lesson.title)}" placeholder="例如：A Conversation at a Restaurant"></div><div class="field"><label>所属单元</label><input name="unit" maxlength="80" value="${escapeHTML(lesson.unit||'')}" placeholder="例如 Unit 1（留空则未分类）" list="unitSuggestions"><datalist id="unitSuggestions">${[...new Set(db.lessons.filter(x=>x.sceneId===scene.id&&x.unit).map(x=>x.unit))].map(u=>`<option value="${escapeHTML(u)}">`).join('')}</datalist></div><div class="field"><label>英文课文 *</label><textarea name="text" required style="min-height:260px" placeholder="在这里粘贴英文课文…">${escapeHTML(lesson.text)}</textarea></div><div class="field"><label>整篇课文笔记（可选）</label><textarea name="note" placeholder="文章概要、语法重点、整体翻译…">${escapeHTML(lesson.note||'')}</textarea></div><div class="actions">${id?'<button class="danger" type="button" id="deleteLesson">删除课文</button>':''}<button data-close type="button">取消</button><button class="primary" type="submit">保存课文</button></div></form>`);document.getElementById('lessonForm').onsubmit=e=>{e.preventDefault();const f=new FormData(e.target);const title=String(f.get('title')||'').trim(),text=String(f.get('text')||'').trim(),note=String(f.get('note')||'').trim(),unit=String(f.get('unit')||'').trim();if(!title||!text)return toast('标题和课文正文不能为空');const lessonsBefore=JSON.parse(JSON.stringify(db.lessons));if(id){if(text!==lesson.text){const c=remapLessonMarks(lesson.text,text,lesson.chunks),f=remapLessonMarks(lesson.text,text,lesson.formats);if(c.lost+f.lost){alert(`为了保护你的笔记，本次修改暂未保存：有 ${c.lost} 条语块和 ${f.lost} 处文字格式无法安全重新定位。请先导出完整备份，或分几次小范围修改课文。原文和所有标注均保持不变。`);return;}lesson.chunks=c.marks;lesson.formats=f.marks;}Object.assign(lesson,{title,text,note,unit,updatedAt:new Date().toISOString()})}else db.lessons.push({id:newId(),sceneId:scene.id,title,text,note,unit,chunks:[],formats:[],createdAt:new Date().toISOString(),updatedAt:new Date().toISOString(),sortOrder:Math.max(-1,...db.lessons.filter(x=>x.sceneId===scene.id&&(x.unit||'未分类')===(unit||'未分类')).map(x=>Number.isFinite(x.sortOrder)?x.sortOrder:-1))+1});if(save()){close();render();toast('课文已保存')}else db.lessons=lessonsBefore};if(id)document.getElementById('deleteLesson').onclick=()=>{if(confirm('确定删除这篇课文及全部语块笔记吗？')){const lessonsBefore=db.lessons;db.lessons=lessonsBefore.filter(x=>x.id!==id);if(save()){close();render();toast('课文已删除')}else db.lessons=lessonsBefore}}}
+function lessonModal(id){const lesson=db.lessons.find(x=>x.id===id)||{title:'',text:'',note:''};const scene=getScene(scenePageId);if(!scene)return toast('请先进入生活场景');modal(`<h2>${id?'编辑课文':'导入课文'}</h2><p>课文属于「${escapeHTML(scene.name)}」场景。可以粘贴整篇英文课文，保存后进入独立阅读页面选词组并做笔记。</p><form id="lessonForm"><div class="field"><label>课文标题 *</label><input name="title" required maxlength="180" value="${escapeHTML(lesson.title)}" placeholder="例如：A Conversation at a Restaurant"></div><div class="field"><label>所属单元</label><input name="unit" maxlength="80" value="${escapeHTML(lesson.unit||'')}" placeholder="例如 Unit 1（留空则未分类）" list="unitSuggestions"><datalist id="unitSuggestions">${[...new Set(db.lessons.filter(x=>x.sceneId===scene.id&&x.unit).map(x=>x.unit))].map(u=>`<option value="${escapeHTML(u)}">`).join('')}</datalist></div><div class="field"><label>英文课文 *</label><textarea name="text" required style="min-height:260px" placeholder="在这里粘贴英文课文…">${escapeHTML(lesson.text)}</textarea></div><div class="field"><label>整篇课文笔记（可选）</label><textarea name="note" placeholder="文章概要、语法重点、整体翻译…">${escapeHTML(lesson.note||'')}</textarea></div><div class="actions">${id?'<button class="danger" type="button" id="deleteLesson">删除课文</button>':''}<button data-close type="button">取消</button><button class="primary" type="submit">保存课文</button></div></form>`);document.getElementById('lessonForm').onsubmit=e=>{e.preventDefault();const f=new FormData(e.target);const title=String(f.get('title')||'').trim(),text=String(f.get('text')||'').trim(),note=String(f.get('note')||'').trim(),unit=String(f.get('unit')||'').trim();if(!title||!text)return toast('标题和课文正文不能为空');const lessonsBefore=JSON.parse(JSON.stringify(db.lessons));if(id){if(text!==lesson.text){const c=remapLessonMarks(lesson.text,text,lesson.chunks),f=remapLessonMarks(lesson.text,text,lesson.formats),p=remapLessonMarks(lesson.text,text,lesson.pronMarks);if(c.lost+f.lost+p.lost){alert(`为了保护你的笔记，本次修改暂未保存：有 ${c.lost} 条语块和 ${f.lost} 处文字格式、${p.lost} 条发音标注无法安全重新定位。请先导出完整备份，或分几次小范围修改课文。原文和所有标注均保持不变。`);return;}lesson.chunks=c.marks;lesson.formats=f.marks;lesson.pronMarks=p.marks;}Object.assign(lesson,{title,text,note,unit,updatedAt:new Date().toISOString()})}else db.lessons.push({id:newId(),sceneId:scene.id,title,text,note,unit,chunks:[],formats:[],pronMarks:[],createdAt:new Date().toISOString(),updatedAt:new Date().toISOString(),sortOrder:Math.max(-1,...db.lessons.filter(x=>x.sceneId===scene.id&&(x.unit||'未分类')===(unit||'未分类')).map(x=>Number.isFinite(x.sortOrder)?x.sortOrder:-1))+1});if(save()){close();render();toast('课文已保存')}else db.lessons=lessonsBefore};if(id)document.getElementById('deleteLesson').onclick=()=>{if(confirm('确定删除这篇课文及全部语块笔记吗？')){const lessonsBefore=db.lessons;db.lessons=lessonsBefore.filter(x=>x.id!==id);if(save()){close();render();toast('课文已删除')}else db.lessons=lessonsBefore}}}
 function lessonTextHTML(lesson){
  const text=lesson.text||'',chunks=(lesson.chunks||[]).filter(c=>Number.isInteger(c.start)&&Number.isInteger(c.end)&&c.start>=0&&c.end<=text.length&&c.end>c.start).sort((a,b)=>a.start-b.start);
  const formats=(lesson.formats||[]).filter(f=>Number.isInteger(f.start)&&Number.isInteger(f.end)&&f.start>=0&&f.end<=text.length&&f.end>f.start);
- const points=new Set([0,text.length]);for(const c of chunks){points.add(c.start);points.add(c.end)}for(const f of formats){points.add(f.start);points.add(f.end)}
+ const pronMarks=(lesson.pronMarks||[]).filter(m=>['link','drop','unreleased','flap','weak'].includes(m.kind)&&Number.isInteger(m.start)&&Number.isInteger(m.end)&&m.start>=0&&m.end<=text.length&&m.end>m.start);const points=new Set([0,text.length]);for(const m of pronMarks){points.add(m.start);points.add(m.end)}for(const c of chunks){points.add(c.start);points.add(c.end)}for(const f of formats){points.add(f.start);points.add(f.end)}
  const bounds=[...points].sort((x,y)=>x-y);let out='',openChunk=null;
  for(let i=0;i<bounds.length-1;i++){
   const start=bounds[i],end=bounds[i+1];if(end<=start)continue;
   const active=formats.filter(f=>f.start<=start&&f.end>=end);let bold=false,italic=false,underline=false,size='',color='';
   for(const f of active){if(Object.hasOwn(f,'bold'))bold=!!f.bold;if(Object.hasOwn(f,'italic'))italic=!!f.italic;if(Object.hasOwn(f,'underline'))underline=!!f.underline;if(Object.hasOwn(f,'size'))size=f.size;if(Object.hasOwn(f,'color'))color=f.color}
   const styles=[];if(bold)styles.push('font-weight:700');if(italic)styles.push('font-style:italic');if(underline)styles.push('text-decoration:underline');if(size&&/^(1[2-9]|2[0-9]|3[0-6])$/.test(String(size)))styles.push('font-size:'+size+'px');if(color&&/^#[0-9a-fA-F]{6}$/.test(color))styles.push('color:'+color);
-  const fragment=styles.length?'<span style="'+styles.join(';')+'">'+escapeHTML(text.slice(start,end))+'</span>':escapeHTML(text.slice(start,end));
+  const pron=pronMarks.find(m=>m.start<=start&&m.end>=end);
+  const raw=escapeHTML(text.slice(start,end));
+  const marked=pron?'<span class="pron-mark pron-'+escapeHTML(pron.kind||'link')+'" data-pron-id="'+escapeHTML(pron.id)+'" data-pron-label="'+escapeHTML(({link:'‿',drop:'∅',flap:'ɾ',weak:'ə',unreleased:'˺'})[pron.kind]||'')+'" title="'+escapeHTML(pron.note||'查看发音笔记')+'">'+raw+'</span>':raw;
+  const fragment=styles.length?'<span style="'+styles.join(';')+'">'+marked+'</span>':marked;
   const chunk=chunks.find(c=>c.start<=start&&c.end>=end);
   if(openChunk!==chunk){if(openChunk)out+=(openChunk.important?'<sup class="chunk-star">*</sup>':'')+'</button>';if(chunk)out+=`<button type="button" class="chunk-mark" data-action="showChunk" data-id="${escapeHTML(chunk.id)}" title="查看语块笔记">`;openChunk=chunk||null}out+=`<span data-lesson-start="${start}" data-lesson-end="${end}">${fragment}</span>`;
  }
@@ -452,7 +481,7 @@ function lessonTextHTML(lesson){
  return out;
 }
 
-function renderLessonPage(){const lesson=db.lessons.find(x=>x.id===lessonPageId);if(!lesson)return renderHome();return `<div class="backbar"><button data-action="backLesson" type="button">← 返回${escapeHTML(getScene(lesson.sceneId)?.name||'场景')}</button></div>`+header('READING NOTES',escapeHTML(lesson.title),'选中课文中的英文，文字旁会出现「标注语块」按钮。',`<button data-action="editLesson" data-id="${escapeHTML(lesson.id)}">编辑课文</button>`)+`<div class="card lesson-reading-card"><div class="lesson-sticky-tools"><div class="row" style="justify-content:space-between;margin-bottom:14px"><span class="mini">已标注 ${(lesson.chunks||[]).length} 个语块</span><button class="primary" data-action="annotateSelection">＋ 标注选中语块</button></div><div class="lesson-format-toolbar"><div class="mini">文字格式：选中课文文字后设置样式；再次点击 B / I / U 可取消对应样式</div><div class="lesson-format-controls"><button type="button" data-action="formatLesson" data-format="bold" title="加粗"><b>B</b></button><button type="button" data-action="formatLesson" data-format="italic" title="斜体"><i>I</i></button><button type="button" data-action="formatLesson" data-format="underline" title="下划线"><u>U</u></button><label>字号 <select id="lessonFontSize" aria-label="字号"><option value="">默认</option><option value="14">14</option><option value="16">16</option><option value="18">18</option><option value="20">20</option><option value="24">24</option><option value="28">28</option><option value="32">32</option></select></label><label>颜色 <input id="lessonFontColor" type="color" value="#287e78" aria-label="文字颜色"></label><button type="button" data-action="clearLessonFormat">清除格式</button></div></div></div><div id="lessonBody" class="lesson-body">${lessonTextHTML(lesson)}</div></div>${lesson.note?`<div class="card" style="margin-top:14px"><b>整篇课文笔记</b><p class="lesson-note">${escapeHTML(lesson.note)}</p></div>`:''}<p class="note">提示：iPad 上长按英文并拖动选择范围，再点击文字旁弹出的「标注语块」。已标注的语块点击后可查看、修改或删除笔记。</p>`}
+function renderLessonPage(){const lesson=db.lessons.find(x=>x.id===lessonPageId);if(!lesson)return renderHome();return `<div class="backbar"><button data-action="backLesson" type="button">← 返回${escapeHTML(getScene(lesson.sceneId)?.name||'场景')}</button></div>`+header('READING NOTES',escapeHTML(lesson.title),'选中课文中的英文，文字旁会出现「标注语块」按钮。',`<button data-action="editLesson" data-id="${escapeHTML(lesson.id)}">编辑课文</button>`)+`<div class="card lesson-reading-card"><div class="lesson-sticky-tools"><div class="row" style="justify-content:space-between;margin-bottom:14px"><span class="mini">已标注 ${(lesson.chunks||[]).length} 个语块</span><button class="primary" data-action="annotateSelection">＋ 标注选中语块</button></div><div class="pron-toolbar"><span class="mini">语流标注（先选中原文）</span><button type="button" data-action="pronSelect" data-kind="link">⌣ 连读</button><button type="button" data-action="pronSelect" data-kind="drop"≯ 省音</button><button type="button" data-action="pronSelect" data-kind="unreleased">˺ 不完全爆破</button><button type="button" data-action="pronSelect" data-kind="flap">ɾ Flap T</button><button type="button" data-action="pronSelect" data-kind="weak">ə 弱读</button></div><div class="lesson-format-toolbar"><div class="mini">文字格式：选中课文文字后设置样式；再次点击 B / I / U 可取消对应样式</div><div class="lesson-format-controls"><button type="button" data-action="formatLesson" data-format="bold" title="加粗"><b>B</b></button><button type="button" data-action="formatLesson" data-format="italic" title="斜体"><i>I</i></button><button type="button" data-action="formatLesson" data-format="underline" title="下划线"><u>U</u></button><label>字号 <select id="lessonFontSize" aria-label="字号"><option value="">默认</option><option value="14">14</option><option value="16">16</option><option value="18">18</option><option value="20">20</option><option value="24">24</option><option value="28">28</option><option value="32">32</option></select></label><label>颜色 <input id="lessonFontColor" type="color" value="#287e78" aria-label="文字颜色"></label><button type="button" data-action="clearLessonFormat">清除格式</button></div></div></div><div id="lessonBody" class="lesson-body">${lessonTextHTML(lesson)}</div></div>${lesson.note?`<div class="card" style="margin-top:14px"><b>整篇课文笔记</b><p class="lesson-note">${escapeHTML(lesson.note)}</p></div>`:''}<p class="note">提示：iPad 上长按英文并拖动选择范围，再点击文字旁弹出的「标注语块」。已标注的语块点击后可查看、修改或删除笔记。</p>`}
 // iPad Safari may collapse the native selection as soon as the annotation button is tapped.
 // Cache offsets while the user is selecting, before the button receives focus.
 let cachedLessonSelection=null;
@@ -592,6 +621,23 @@ function annotateSelection(){
   window.getSelection()?.removeAllRanges();
   chunkModal(null,start,end);
 }
+
+function pronSelect(kind){
+ const lesson=db.lessons.find(x=>x.id===lessonPageId),selection=readLessonSelection()||(cachedLessonSelection?.lessonId===lessonPageId?cachedLessonSelection:null);
+ if(!lesson||!selection||lesson.text.slice(selection.start,selection.end)!==selection.text)return toast('请先选中需要标记的英文');
+ if((lesson.pronMarks||[]).some(m=>selection.start<m.end&&selection.end>m.start))return toast('发音标注不能重叠，请先编辑或删除原标注');
+ window.getSelection()?.removeAllRanges();clearLessonSelection();pronMarkModal(null,selection.start,selection.end,kind);
+}
+function pronMarkModal(id,start,end,kind){
+ const lesson=db.lessons.find(x=>x.id===lessonPageId);if(!lesson)return;
+ const mark=(lesson.pronMarks||[]).find(m=>m.id===id);if(mark){start=mark.start;end=mark.end;kind=mark.kind}
+ const labels={link:'连读弧线',drop:'省音划线',unreleased:'不完全爆破',flap:'Flap T [ɾ]',weak:'弱读'};
+ const overlappingChunk=(lesson.chunks||[]).find(c=>start<c.end&&end>c.start);
+ modal('<h2>语流发音标注</h2><div class="chunk-quote">'+escapeHTML(lesson.text.slice(start,end))+'</div><form id="pronForm"><div class="field"><label>标注类型</label><select name="kind">'+Object.entries(labels).map(([k,v])=>'<option value="'+k+'" '+(kind===k?'selected':'')+'>'+v+'</option>').join('')+'</select></div><div class="field"><label>音标 / 发音说明（可选）</label><textarea name="note" placeholder="例如：美式闪音 [ɾ]；这里的 /t/ 不完全释放">'+escapeHTML(mark?.note||'')+'</textarea></div>'+(overlappingChunk?'<button type="button" id="openRelatedChunk">查看重叠的语块笔记</button>':'')+'<div class="actions">'+(mark?'<button type="button" class="danger" id="pronDelete">删除标注</button>':'')+'<button type="button" data-close>取消</button><button class="primary" type="submit">保存标注</button></div></form>');
+ if(overlappingChunk)document.getElementById('openRelatedChunk').onclick=()=>showChunkNote(overlappingChunk.id);
+ document.getElementById('pronForm').onsubmit=e=>{e.preventDefault();const f=new FormData(e.target),k=String(f.get('kind'));if(!labels[k])return;const previous=(lesson.pronMarks||[]).map(x=>({...x}));if(mark){mark.kind=k;mark.note=String(f.get('note')||'').trim()}else{lesson.pronMarks=lesson.pronMarks||[];lesson.pronMarks.push({id:newId(),start,end,kind:k,note:String(f.get('note')||'').trim()})}if(save()){close();render();toast('发音标注已保存')}else lesson.pronMarks=previous};
+ if(mark)document.getElementById('pronDelete').onclick=()=>{if(!confirm('删除这条发音标注？'))return;const before=lesson.pronMarks;lesson.pronMarks=before.filter(x=>x.id!==mark.id);if(save()){close();render();toast('已删除发音标注')}else lesson.pronMarks=before};
+}
 function formatLesson(kind,value){
  const lesson=db.lessons.find(x=>x.id===lessonPageId);
  const live=readLessonSelection();
@@ -622,10 +668,11 @@ document.addEventListener('pointerdown',e=>{const handle=e.target.closest('.less
 document.addEventListener('pointermove',e=>{if(!lessonDrag||e.pointerId!==lessonDrag.pointerId)return;const hit=document.elementFromPoint(e.clientX,e.clientY)?.closest('.lesson-sort-item');document.querySelectorAll('.lesson-sort-item.drag-target').forEach(el=>el.classList.remove('drag-target'));if(hit&&hit.dataset.lessonId!==lessonDrag.id){hit.classList.add('drag-target');lessonDrag.targetId=hit.dataset.lessonId}else lessonDrag.targetId=null;e.preventDefault()},{passive:false});
 document.addEventListener('pointerup',e=>{if(!lessonDrag||e.pointerId!==lessonDrag.pointerId)return;const {id,targetId}=lessonDrag;lessonDrag=null;document.querySelectorAll('.lesson-sort-item.drag-target,.lesson-sort-item.dragging-lesson').forEach(el=>el.classList.remove('drag-target','dragging-lesson'));if(targetId&&lessonReorderMode&&view==='scene'&&filterType==='课文')moveLesson(id,targetId)});
 document.addEventListener('pointercancel',()=>{lessonDrag=null;document.querySelectorAll('.lesson-sort-item.drag-target,.lesson-sort-item.dragging-lesson').forEach(el=>el.classList.remove('drag-target','dragging-lesson'))});
+document.addEventListener('click',e=>{const mark=e.target.closest('.pron-mark[data-pron-id]');if(mark){const sel=window.getSelection();if(sel&&!sel.isCollapsed)return;e.preventDefault();e.stopPropagation();pronMarkModal(mark.dataset.pronId);}},true);
 document.addEventListener('click',e=>{let b=e.target.closest('[data-nav]');if(b){if(view==='session'&&sessionSummary.length&&!confirm('离开练习？已完成的进度会保留。'))return;setView(b.dataset.nav);return}b=e.target.closest('[data-close]');if(b){close();return}b=e.target.closest('[data-action]');if(!b)return;const a=b.dataset.action,id=b.dataset.id;({newItem:()=>itemModal(),editItem:()=>itemModal(id),newScene:()=>sceneModal(),editScene:()=>sceneModal(id),newSceneNote:()=>sceneNoteModal(id),editSceneNote:()=>sceneNoteModal(id,b.dataset.noteId),deleteSceneNote:()=>deleteSceneNote(id,b.dataset.noteId),openScene:()=>{exitLessonReorder();scenePageId=id;lessonPageId='';history.pushState({novaScene:id},'',location.pathname+location.search+'#scene-'+encodeURIComponent(id));view='scene';filterScene='';filterType='句子';search='';render();resetMainScroll()},backHome:()=>{exitLessonReorder();if(location.hash.startsWith('#scene-')&&history.state?.novaScene)history.back();else setView('home')},addToScene:()=>itemModal(),
 newLesson:()=>lessonModal(),editLesson:()=>{if(lessonReorderMode)return;const l=db.lessons.find(x=>x.id===id);if(l){scenePageId=l.sceneId;lessonModal(id)}},
 openLesson:()=>{if(!lessonReorderMode)openLesson(id)},backLesson:()=>{if(location.hash.startsWith('#lesson-')&&history.state?.novaLesson)history.back();else{const l=db.lessons.find(x=>x.id===lessonPageId);scenePageId=l?.sceneId||scenePageId;lessonPageId='';view='scene';filterType='课文';render();resetMainScroll()}},
-annotateSelection:()=>annotateSelection(),formatLesson:()=>formatLesson(b.dataset.format),clearLessonFormat:()=>formatLesson('clear'),showChunk:()=>showChunkNote(id),
+annotateSelection:()=>annotateSelection(),pronSelect:()=>pronSelect(b.dataset.kind),formatLesson:()=>formatLesson(b.dataset.format),clearLessonFormat:()=>formatLesson('clear'),showChunk:()=>showChunkNote(id),
 sceneType:()=>{exitLessonReorder();filterType=b.dataset.type||'句子';search='';render()},toggleLessonReorder:()=>{if(view!=='scene'||filterType!=='课文')return;if(lessonReorderMode){exitLessonReorder();render();return}const oldMode=lessonSortMode,oldSettings=db.settings?{...db.settings}:null;lessonSortMode='manual';db.settings=db.settings||{};db.settings.lessonSortMode='manual';if(!save()){lessonSortMode=oldMode;if(oldSettings)db.settings=oldSettings;else delete db.settings;render();return}lessonReorderMode=true;render()},lessonUp:()=>nudgeLesson(id,-1),lessonDown:()=>nudgeLesson(id,1),
 toggleExpressionNote:()=>toggleExpressionNote(b),deleteExpression:()=>deleteExpression(id),toggleStar:()=>toggleStar(id),openTag:()=>openTag(id),manageTags,createTag,deleteTag:()=>deleteTag(id),favMode:()=>{collectionMode=b.dataset.mode;render()},startNew:()=>start('new'),startReview:()=>start('review'),startOutput,recordOutput,speechOutput,toggleOutputAnswer,outputNext,downloadOutput,showAnswer:()=>{showAnswer=true;studyPage()},grade:()=>grade(b.dataset.grade),endSession:()=>finish(),speak:()=>speak(id),showImport:importModal,backup,exportCSV:exportTSV,restore}[a]||(()=>{}))()});document.addEventListener('change',e=>{if(e.target.id==='lessonSortSelect'){if(!LESSON_SORT_MODES.includes(e.target.value))return;const oldMode=lessonSortMode,oldSettings=db.settings?{...db.settings}:null;lessonSortMode=e.target.value;exitLessonReorder();db.settings=db.settings||{};db.settings.lessonSortMode=lessonSortMode;if(!save()){lessonSortMode=oldMode;if(oldSettings)db.settings=oldSettings;else delete db.settings}render()}if(e.target.id==='filterScene'){filterScene=e.target.value;render()}if(e.target.id==='filterType'){filterType=e.target.value;render()}if(e.target.id==='tagFilter'){tagFilter=e.target.value;render()}if(e.target.id==='outputScene'){outputScene=e.target.value;render()}});document.addEventListener('input',e=>{if(e.target.id==='search'){const pos=e.target.selectionStart;search=e.target.value;const box=document.getElementById('content');const list=view==='scene'?renderScenePage():view==='favorites'?renderFavorites():renderHome();box.innerHTML=list;const next=document.getElementById('search');next.focus();next.setSelectionRange(pos,pos)}});function restoreRouteFromURL(){exitLessonReorder();
  const hash=location.hash;
@@ -648,7 +695,7 @@ restoreRouteFromURL();render();
 /* Nova Speak update manager: compare published manifest with verified HTML before offering update. */
 (function(){
  'use strict';
- const CURRENT_VERSION='0.9.3', CHECK_INTERVAL=15*60*1000;
+ const CURRENT_VERSION='0.9.5', CHECK_INTERVAL=15*60*1000;
  let checking=false,lastCheck=0,showing=false;
  const versionRE=/^\d+\.\d+\.\d+$/;
  function compare(a,b){const x=a.split('.').map(Number),y=b.split('.').map(Number);for(let i=0;i<3;i++){if(x[i]!==y[i])return x[i]>y[i]?1:-1;}return 0;}
@@ -738,3 +785,5 @@ restoreRouteFromURL();render();
 </script>
 
 </body></html>
+
+<!-- V0.9.5: annotation selection and IPA caret safety fixes -->
